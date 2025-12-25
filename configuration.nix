@@ -50,8 +50,12 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.enable = false;
   services.xserver.desktopManager.gnome.enable = true;
+
+  
+  services.xserver.displayManager.lightdm.enable = false;
+  services.xserver.displayManager.sddm.enable = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -84,6 +88,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.groups.blazzee = {};
   users.users.blazzee = {
+    shell = pkgs.zsh;
     isNormalUser = true;
     description = "blazzee";
     extraGroups = [ "networkmanager" "wheel" ];
@@ -137,4 +142,5 @@
   system.stateVersion = "25.11"; # Did you read the comment?
   nix.settings.experimental-features = ["nix-command" "flakes"];
   services.openssh.enable = true;
+  programs.zsh.enable = true;
 }

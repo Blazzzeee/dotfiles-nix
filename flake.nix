@@ -21,7 +21,7 @@
 
       modules = [
         ./configuration.nix
-	  ./sh.nix
+        ./sh.nix
       ];
     };
 

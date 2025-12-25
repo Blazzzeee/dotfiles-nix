@@ -77,7 +77,7 @@
   },
 
   "battery": {
-    "format": "<span font='font awesome 5 free 11'>{icon} </span> {capacity}%",
+    "format": "<span font='font awesome 5 free 11'>{icon}</span> {capacity}%",
     "format-icons": [" ", " ", " ", " ", " "],
     "format-charging": "<span font='font awesome 5 free'></span>  <span font='font awesome 5 free 11'>{icon}</span>  {capacity}%",
     "format-full": "<span font='font awesome 5 free'></span>  <span font='font awesome 5 free 11'>{icon}</span>  charged",

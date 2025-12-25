@@ -32,6 +32,9 @@
   home.packages = with pkgs; [
   tofi
   qutebrowser
+  fd
+  lazygit
+  brave
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -47,6 +50,130 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".config/helix/config.toml" = {
+      text = ''
+          theme = "nyxvamp-veil"
+          # theme = "rose_pine"
+
+          [editor]
+          line-number = "relative"
+          end-of-line-diagnostics = "hint"
+          [editor.inline-diagnostics]
+          cursor-line = "warning" # show warnings and errors on the cursorline inline
+
+          [keys.normal]
+          esc = ["collapse_selection", "keep_primary_selection"]
+          S-r = [":config-reload"] 
+          - = [
+            ':sh rm -f /tmp/unique-file',
+            ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+            ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+            ':open %sh{cat /tmp/unique-file}',
+            ':redraw',
+          ]
+          # f t = ":sh alacritty"  
+
+          [editor.file-picker]
+          hidden = true
+          git-ignore = true
+
+          [editor.indent-guides]
+          render = true
+          character = "|"
+          skip-levels = 1
+          render-blank-lines = true
+        '';
+    };
+    ".config/helix/languages.toml" = {
+      text = ''
+          [language-server.scls]
+          command = "simple-completion-language-server"
+
+          [language-server.scls.config]
+          feature_words = true
+          feature_snippets = true
+          snippets_first = true
+          snippets_inline_by_word_tail = false
+          feature_unicode_input = false
+          feature_paths = false
+          feature_citations = false
+
+          [language-server.scls.environment]
+          RUST_LOG = "info,simple-completion-language-server=info"
+          LOG_FILE = "/tmp/completion.log"
+
+          [[language]]
+          name = "c"
+          auto-format = false
+          language-id = "c"
+          language-servers = ["clangd"]
+
+
+          [[language]]
+          name = "python"
+          auto-format = false
+          language-id = "python"
+          language-servers = ["ruff-lsp", "pyright", "scls"]
+          file-types = ["py", "pyi", "pyx"]
+
+          # TypeScript
+          [[language]]
+          name = "typescript"
+          file-types = ["ts"]
+          roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+          language-servers = ["ts_ls"]
+
+          # TypeScript React
+          [[language]]
+          name = "tsx"
+          file-types = ["tsx"]
+          roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+          language-servers = ["ts_ls", "emmet_ls"]
+
+          # JavaScript
+          [[language]]
+          name = "javascript"
+          file-types = ["js"]
+          roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+          language-servers = ["ts_ls"]
+
+          # JavaScript React
+          [[language]]
+          name = "jsx"
+          file-types = ["jsx"]
+          roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+          language-servers = ["ts_ls", "emmet_ls"]
+
+          # Emmet LSP
+          [language-server.emmet_ls]
+          command = "emmet-language-server"
+          args = ["--stdio"]
+
+          # TypeScript LSP
+          [language-server.ts_ls]
+          command = "typescript-language-server"
+          args = ["--stdio"]
+
+
+          [language-server.ruff-lsp]
+          command = "ruff server"
+
+
+          # Ruby
+          [[language]]
+          name = "ruby"
+          file-types = ["rb", "rake", "gemspec", "ru", "thor", "erb"]
+          roots = ["Gemfile"]
+          language-servers = ["ruby-lsp"]
+          auto-format = false
+
+          # Ruby LSP (uses global binary; bundler fallback handled via Gemfile inclusion)
+          [language-server.ruby-lsp]
+          command = "ruby-lsp"
+          required-root-patterns = ["Gemfile"]
+          config = { formatter = "standard" }
+        '';
+    };
   };
 
   home.file.".config/hypr" = {

@@ -12,8 +12,8 @@
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.grub.device = "/dev/nvmpe0n1p1";
+  boot.loader.grub.useOSProber = false;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;

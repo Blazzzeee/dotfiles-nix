@@ -5,10 +5,18 @@
   # manage.
   home.username = "blazzee";
   home.homeDirectory = "/home/blazzee";
-  programs.kitty.enable = true;
   programs.waybar.enable = true;
   programs.helix.enable = true;
+  programs.zoxide.enable = true;
+  services.swww.enable = true;
   wayland.windowManager.hyprland.enable = true;
+  programs.zsh.enable = true;
+  programs.neovim.enable = true;
+  programs.zsh.autosuggestion.enable = true;
+  programs.zsh.syntaxHighlighting.enable = true;
+  programs.zoxide.enableZshIntegration = true;
+  programs.starship.enable = true;
+
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -21,7 +29,9 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
+  tofi
+  qutebrowser
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -49,6 +59,38 @@
     recursive = true;
   };
 
+  home.file.".config/nvim" = {
+    source = ./nvim;
+    recursive = true;
+  };
+
+  home.file.".config/tofi/config.toml" = { 
+      source = pkgs.writeText "tofi-config" ''
+      # Nordbones-inspired Tofi config (no red, no transparency)
+
+      font = JetBrainsMono Nerd Font
+      font-size = 14
+
+      background-color = #111111
+      text-color = #f9fbff
+      selection-color = #5e81ac 
+
+      outline-width = 0
+      border-width = 0
+
+      padding-left = 2%
+      padding-top = 2%
+      padding-right = 0
+      padding-bottom = 0
+
+      width = 20%
+      height = 30%
+
+      hide-cursor = true
+      prompt-text = ""
+    '';
+  };
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -72,4 +114,17 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.kitty = {
+   enable = true;
+   theme = "Catppuccin-Mocha";
+   font = {
+	name = "JetBrainsMono Nerd Font";
+	size = 14;
+   };
+   settings = {
+      background_opacity = "0.90";
+      confirm_os_window_close = 0;
+      enable_audio_bell = false;
+    };
+  };
 }

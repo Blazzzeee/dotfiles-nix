@@ -6,5 +6,6 @@
     nerd-fonts.jetbrains-mono
     vimix-cursors
     wl-clipboard
+    pavucontrol
   ];
 }

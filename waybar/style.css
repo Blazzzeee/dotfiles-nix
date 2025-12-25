@@ -21,11 +21,12 @@ window#waybar {
 }
 
 #cpu {
+  font-size:1rem;
   /* color: @color13; */
 }
 
 #memory {
-  /* color: @color13; */
+  font-size:1rem;
 }
 
 #pulseaudio.muted {

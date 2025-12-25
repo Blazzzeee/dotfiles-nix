@@ -9,11 +9,11 @@
   "hyprland/workspaces",
 ],
   "modules-center": [
-  "cpu",
   "clock",
-  "memory"
  ],
   "modules-right": [
+    "memory",
+    "cpu",
     "tray",
     "custom/sep",
     "pulseaudio",
@@ -44,14 +44,14 @@
 
  
 "cpu": {
-  "format": "󰍛 {usage}% ", 
+  "format": " 󰍛 {usage}% ", 
   "tooltip": true,
   "tooltip-format": "CPU Usage: {usage}%",
   "interval": 2
 },
 
 "memory": {
-  "format": "󰘚 {used}/{total}",
+  "format": "󰘚  {percentage}%",
   "tooltip": true,
   "tooltip-format": "RAM Used: {used}GB / {total}GB",
   "interval": 2
@@ -90,7 +90,7 @@
   },
 
   "pulseaudio": {
-    "format": "{icon}  {volume}%",
+    "format": "{icon} {volume}%",
     "format-muted": "  muted",
     "format-icons": {
       "headphone": " ",

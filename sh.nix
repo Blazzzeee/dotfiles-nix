@@ -7,5 +7,7 @@
     vimix-cursors
     wl-clipboard
     pavucontrol
+    brightnessctl
+    libnotify
   ];
 }

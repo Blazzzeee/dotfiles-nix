@@ -9,6 +9,7 @@
   programs.helix.enable = true;
   programs.zoxide.enable = true;
   services.swww.enable = true;
+  services.swaync.enable = true;
   wayland.windowManager.hyprland.enable = true;
   programs.zsh.enable = true;
   programs.neovim.enable = true;
@@ -16,6 +17,8 @@
   programs.zsh.syntaxHighlighting.enable = true;
   programs.zoxide.enableZshIntegration = true;
   programs.starship.enable = true;
+  programs.rofi.enable = true;
+  programs.zellij.enable = true;
 
 
   # This value determines the Home Manager release that your configuration is
@@ -191,6 +194,79 @@
     recursive = true;
   };
 
+  home.file.".config/scripts" = {
+    source = ./scripts;
+    recursive = true;
+    executable = true;
+  };
+
+  home.file.".config/swaync" = {
+    source = ./swaync;
+    recursive = true;
+  };
+
+  home.file.".config/rofi" = {
+    source = ./rofi;
+    recursive = true;
+  };
+
+  home.file.".config/zellij" = {
+    source = ./zellij;
+    recursive = true;
+  };
+
+programs.sherlock = {
+  enable = true;
+
+  # to run sherlock as a daemon
+  systemd.enable = true;
+
+  # If wanted, you can use this line for the _latest_ package. / Otherwise, you're relying on nixpkgs to update it frequently enough.
+  # For this to work, make sure to add sherlock as a flake input!
+  # package = inputs.sherlock.packages.${pkgs.system}.default;
+
+  # config.toml
+  settings = {};
+
+  # sherlock_alias.json
+  aliases = {
+    vesktop = { name = "Discord"; };
+  };
+
+  # sherlockignore
+  ignore = ''
+    Avahi*
+  '';
+
+  # fallback.json
+  launchers = [
+    {
+      name = "Calculator";
+      type = "calculation";
+      args = {
+        capabilities = [
+          "calc.math"
+          "calc.units"
+        ];
+      };
+      priority = 1;
+    }
+    {
+      name = "App Launcher";
+      type = "app_launcher";
+      args = {};
+      priority = 2;
+      home = "Home";
+    }
+  ];
+
+  # main.css
+  style = /* css */ ''
+    * {
+      font-family: sans-serif;
+    }
+  '';
+};
   home.file.".config/tofi/config.toml" = { 
       source = pkgs.writeText "tofi-config" ''
       # Nordbones-inspired Tofi config (no red, no transparency)

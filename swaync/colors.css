@@ -1,0 +1,32 @@
+/* NORD BASE COLORS */
+@define-color color0  #2e3440;  /* Polar Night - darkest */
+@define-color color1  #3b4252;
+@define-color color2  #434c5e;
+@define-color color3  #4c566a;
+
+@define-color color4  #d8dee9;  /* Snow Storm - lightest text */
+@define-color color5  #e5e9f0;
+@define-color color6  #eceff4;
+
+@define-color color7  #8fbcbb;  /* Frost - teal */
+@define-color color8  #88c0d0;  /* Frost - light blue */
+@define-color color9  #81a1c1;  /* Frost - sky blue */
+@define-color color10 #5e81ac;  /* Frost - navy blue */
+
+@define-color color11 #bf616a;  /* Aurora - red */
+@define-color color12 #d08770;  /* Aurora - orange */
+@define-color color13 #ebcb8b;  /* Aurora - yellow */
+@define-color color14 #a3be8c;  /* Aurora - green */
+@define-color color15 #b48ead;  /* Aurora - purple */
+
+/* NAMED ALIASES */
+@define-color background       @color0;                 /* Main background */
+@define-color background-alt   alpha(@color1, .4);      /* Slightly visible background blocks */
+@define-color background-sec   alpha(@color2, .5);      /* Deeper overlay background */
+
+@define-color foreground       @color4;                 /* Main text */
+@define-color text             @foreground;
+
+@define-color selected         @color8;                 /* Highlight (blueish) */
+@define-color hover            alpha(@color6, .15);     /* Soft hover effect */
+@define-color urgent           @color11;                /* Critical (red) */

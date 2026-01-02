@@ -8,6 +8,7 @@
       wl-clipboard
       pavucontrol
       brightnessctl
+      arp-scan
       libnotify
     ];
 }

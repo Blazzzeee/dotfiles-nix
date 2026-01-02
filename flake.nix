@@ -14,6 +14,7 @@
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
+
   in {
     # --- NixOS system ---
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -21,7 +22,7 @@
 
       modules = [
         ./configuration.nix
-        ./sh.nix
+        ./pkgs.nix
       ];
     };
 
@@ -29,10 +30,11 @@
     homeConfigurations.blazzee =
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
+       
         modules = [
           ./home.nix
         ];
+
       };
   };
 }

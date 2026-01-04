@@ -9,6 +9,7 @@
       pavucontrol
       brightnessctl
       arp-scan
+      tailscale
       libnotify
     ];
 }

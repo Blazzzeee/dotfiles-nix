@@ -11,7 +11,21 @@
   services.swww.enable = true;
   services.swaync.enable = true;
   wayland.windowManager.hyprland.enable = true;
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    shellAliases = {
+      lg = "lazygit";
+      y = "yazi";
+      niH = "home-manager switch --flake .";
+      niR = "sudo nixos-rebuild switch --flake .";
+    };
+    initContent = ''
+      # Make Alt+Backspace delete backward word
+      bindkey '^[^?' backward-kill-word
+      bindkey '^[\b' backward-kill-word
+    '';
+  };
+
   programs.neovim.enable = true;
   programs.zsh.autosuggestion.enable = true;
   programs.zsh.syntaxHighlighting.enable = true;
@@ -19,6 +33,8 @@
   programs.starship.enable = true;
   programs.rofi.enable = true;
   programs.zellij.enable = true;
+  programs.yazi.enable = true;
+
 
 
   # This value determines the Home Manager release that your configuration is
@@ -74,7 +90,6 @@
             ':open %sh{cat /tmp/unique-file}',
             ':redraw',
           ]
-          # f t = ":sh alacritty"  
 
           [editor.file-picker]
           hidden = true

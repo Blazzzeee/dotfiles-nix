@@ -8,9 +8,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };    
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, antigravity-nix , ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
@@ -23,6 +28,11 @@
       modules = [
         ./configuration.nix
         ./pkgs.nix
+          {
+          environment.systemPackages = [
+            antigravity-nix.packages.x86_64-linux.default
+          ];
+        }
       ];
     };
 
@@ -33,7 +43,7 @@
        
         modules = [
           ./home.nix
-        ];
+      ];
 
       };
   };

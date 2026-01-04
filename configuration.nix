@@ -143,4 +143,5 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
   services.openssh.enable = true;
   programs.zsh.enable = true;
+  services.tailscale.enable = true;
 }

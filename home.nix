@@ -8,6 +8,8 @@
   programs.waybar.enable = true;
   programs.helix.enable = true;
   programs.zoxide.enable = true;
+  programs.eza.enable = true;
+  programs.eza.icons = "always";
   services.swww.enable = true;
   services.swaync.enable = true;
   wayland.windowManager.hyprland.enable = true;
@@ -36,6 +38,7 @@
   programs.rofi.enable = true;
   programs.zellij.enable = true;
   programs.yazi.enable = true;
+  programs.eza.enableZshIntegration = true;
 
 
 

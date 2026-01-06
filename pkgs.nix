@@ -11,5 +11,6 @@
       arp-scan
       tailscale
       libnotify
+      dnsutils
     ];
 }

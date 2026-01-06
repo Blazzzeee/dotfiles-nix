@@ -18,6 +18,8 @@
       y = "yazi";
       niH = "home-manager switch --flake .";
       niR = "sudo nixos-rebuild switch --flake .";
+      nv = "nvim";
+      n = "nvim .";
     };
     initContent = ''
       # Make Alt+Backspace delete backward word
@@ -54,7 +56,47 @@
   fd
   lazygit
   brave
+  catppuccin-gtk
+  nwg-look
   ];
+
+
+  gtk = {
+    enable = true;
+
+    theme = {
+      name = "Catppuccin-Macchiato-Compact-Lavender-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        variant = "macchiato";
+        accents = [ "lavender" ];
+        size = "compact";
+        tweaks = [ "rimless" "black" ];
+      };
+    };
+  };
+
+  # Proper GTK4 theming on Wayland (required!)
+  xdg.configFile = {
+    "gtk-4.0/assets" = { 
+      source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+      force = true;
+    };
+
+    "gtk-4.0/gtk.css" = { 
+      source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
+      force = true;
+    };
+
+    "gtk-4.0/settings.ini" = { 
+      source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/settings.ini";
+      force = true;
+    };
+
+    "gtk-4.0/gtk-dark.css" = { 
+      source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+      force = true;
+    };
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

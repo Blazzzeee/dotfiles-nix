@@ -12,5 +12,12 @@
       tailscale
       libnotify
       dnsutils
+      clang-tools
+      lua-language-server
+      pyright
+      nodePackages.typescript-language-server
+      nodePackages.eslint
+      rubyPackages.ruby-lsp
+      emmet-language-server
     ];
 }

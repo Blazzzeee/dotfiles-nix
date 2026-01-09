@@ -11,7 +11,6 @@ return {
         clangd = {},
         lua_ls = {},
         pyright = {},
-        copilot = {},
         ts_ls = {},
         eslint = {
           settings = {

@@ -8,6 +8,10 @@ return {
 
        require("blink-cmp").setup({
 
+          fuzzy = {
+            implementation = "lua",
+          },
+
           sources = {
             default = { "lsp", "path", "snippets", "buffer" },
             providers = {

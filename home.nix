@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, niriEnabled , lib , ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -275,6 +275,17 @@
     recursive = true;
   };
 
+  home.file.".niri" = lib.mkIf niriEnabled {
+    source = ./niri;
+    recursive = true;
+    force = true;
+  };
+
+  home.file.".config/waybar-niri" = lib.mkIf niriEnabled {
+    source = ./waybar-niri;
+    recursive = true;
+  };
+
 programs.sherlock = {
   enable = true;
 
@@ -388,6 +399,7 @@ programs.sherlock = {
       background_opacity = "0.90";
       confirm_os_window_close = 0;
       enable_audio_bell = false;
+      hide_window_decorations = "yes"; 
     };
   };
 }

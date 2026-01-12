@@ -21,4 +21,4 @@
         emmet-language-server
         uv
     ]
-}
+};

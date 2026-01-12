@@ -20,5 +20,5 @@
         rubyPackages.ruby-lsp
         emmet-language-server
         uv
-    ]
-};
+    ];
+}

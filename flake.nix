@@ -19,16 +19,11 @@
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
-    niriEnabled = true;
 
   in {
     # --- NixOS system ---
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
-
-      specialArgs = {
-        inherit niriEnabled;
-      };
 
       modules = [
         ./configuration.nix
@@ -49,10 +44,6 @@
         modules = [
           ./home.nix
       ];
-
-      extraSpecialArgs = {
-        inherit niriEnabled;
-          };
 
       };
   };

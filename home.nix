@@ -1,4 +1,4 @@
-{ config, pkgs, niriEnabled , lib , ... }:
+{ config, pkgs, lib , ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -275,18 +275,8 @@
     recursive = true;
   };
 
-  home.file.".niri" = lib.mkIf niriEnabled {
-    source = ./niri;
-    recursive = true;
-    force = true;
-  };
 
-  home.file.".config/waybar-niri" = lib.mkIf niriEnabled {
-    source = ./waybar-niri;
-    recursive = true;
-  };
-
-programs.sherlock = {
+  programs.sherlock = {
   enable = true;
 
   # to run sherlock as a daemon

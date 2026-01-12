@@ -1,4 +1,4 @@
-{ config , pkgs , lib, niriEnabled , ... }:
+{ config , pkgs , lib , ... }:
 
 {
     environment.systemPackages = with pkgs; [
@@ -21,8 +21,4 @@
         emmet-language-server
         uv
     ]
-
-    ++ lib.optionals niriEnabled  [
-        niri 
-    ]; 
 }

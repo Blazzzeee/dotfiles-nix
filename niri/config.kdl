@@ -54,11 +54,11 @@ layout {
         off
     }
 
-    // border {
-    //     width 1
-    //     active-color "#c6a0f6" // Catppuccin Lavender
-    //     inactive-color "#595959aa"
-    // }
+    border {
+        width 1
+        active-color "#c6a0f6" // Catppuccin Lavender
+        inactive-color "#595959aa"
+    }
 }
 
 spawn-at-startup "waybar" "-c" "/home/blazzee/.config/waybar-niri/config.jsonc" "-s" "/home/blazzee/.config/waybar-niri/style.css"

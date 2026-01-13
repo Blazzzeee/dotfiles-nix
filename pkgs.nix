@@ -20,6 +20,7 @@
         rubyPackages.ruby-lsp
         emmet-language-server
         uv
+    ]
 
     ++ lib.optionals niriEnabled  [
         niri 

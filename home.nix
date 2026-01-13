@@ -275,7 +275,7 @@
     recursive = true;
   };
 
-  home.file.".niri" = lib.mkIf niriEnabled {
+  home.file.".config/niri" = lib.mkIf niriEnabled {
     source = ./niri;
     recursive = true;
     force = true;
@@ -396,7 +396,7 @@ programs.sherlock = {
 	size = 14;
    };
    settings = {
-      background_opacity = "0.90";
+      background_opacity = "1.0";
       confirm_os_window_close = 0;
       enable_audio_bell = false;
       hide_window_decorations = "yes"; 

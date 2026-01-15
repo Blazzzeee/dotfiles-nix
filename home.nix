@@ -116,8 +116,7 @@
     # '';
     ".config/helix/config.toml" = {
       text = ''
-          theme = "nyxvamp-veil"
-          # theme = "rose_pine"
+          theme = "catppuccin_mocha"
 
           [editor]
           line-number = "relative"

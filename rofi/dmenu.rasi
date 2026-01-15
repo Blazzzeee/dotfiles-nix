@@ -27,10 +27,10 @@ horibox {
 listview {
     layout:     horizontal;
     spacing:    10px;
-    lines:      5;
+    lines:      1;
 }
 entry {
-    expand:     true;
+    expand:     false;
     width:      10em;
 }
 element {

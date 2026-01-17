@@ -137,7 +137,7 @@
 
           [editor.file-picker]
           hidden = true
-          git-ignore = true
+          git-ignore = false
 
           [editor.indent-guides]
           render = true
@@ -166,7 +166,8 @@
 
           [[language]]
           name = "c"
-          auto-format = false
+          auto-format = true
+          formatter = { command="clang-format", args= ["--assume-filename=.c"]}
           language-id = "c"
           language-servers = ["clangd"]
 

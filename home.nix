@@ -287,7 +287,7 @@
   };
 
 programs.sherlock = {
-  enable = true;
+  enable = false;
 
   # to run sherlock as a daemon
   systemd.enable = true;

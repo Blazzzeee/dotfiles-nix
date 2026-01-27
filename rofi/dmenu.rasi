@@ -1,48 +1,69 @@
 configuration {
   modi: "drun";
-  display-drun: "";
+  display-drun: "Run: ";
   show-icons: false;
   drun-display-format: "{name}";
   font: "JetBrains Mono 16";
-      listview-hover-select: true;
-} 
-*{
-    background-color:      #181926;
-    border-color:          White;
-    text-color:           #cad3f5;
+  listview-hover-select: true;
+  matching: "fuzzy";
+  tokenize: true;
+  sort: true;
+  sorting-method: "fzf";
 }
+
+* {
+    /* Catppuccin Mocha Colors */
+    bg: #1e1e2e;
+    fg: #cdd6f4;
+    mauve: #cba6f7;
+    surface0: #313244;
+    
+    background-color:      transparent;
+    text-color:           @fg;
+}
+
 window {
-    height: 4.6%;
+    padding: 1%;
     anchor: north;
+    location: north;
+    height: 5%;
+    width: 100%;
     y-offset: -4.7%;
-    location: northwest;
-    width:100%;
-    padding: 4px;
-    children:   [ horibox ];
+    background-color: @bg;
+    children: [ horibox ];
 }
+
 horibox {
     orientation: horizontal;
     children:   [ prompt, entry, listview ];
 }
-listview {
-    layout:     horizontal;
-    spacing:    10px;
-    lines:      1;
+
+prompt {
+    text-color: @mauve;
+    padding: 0px 10px 0px 5px;
 }
+
 entry {
     expand:     false;
     width:      10em;
-}
-element {
-    padding: 0px 2px;
-    text-color: #c6a0f6;
-}
-element selected {
-    background-color: transparent;
-    text-color: #eed49f;
+    text-color: @fg;
 }
 
-element-text, element-icon {
-  background-color: inherit;
-  text-color: inherit;
+listview {
+    layout:     horizontal;
+    spacing:    15px;
+    lines:      100;
+}
+
+element {
+    padding: 0px 5px;
+}
+
+element selected {
+    text-color: @mauve;
+}
+
+element-text {
+    background-color: inherit;
+    text-color: inherit;
 }

@@ -58,7 +58,7 @@
 },
  
   "custom/distrologo": {
-    "format":"󰣇 ",
+    "format":"󱄅 ",
     "tooltip":true,
     "tooltip-format":"I use Arch BTW",
     "on-click": "rofi -show drun"

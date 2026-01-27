@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 ## Author : Aditya Shakya (adi1090x)
@@ -9,9 +8,10 @@
 ## Available Styles
 #
 ## style-1   style-2   style-3   style-4   style-5
+## style-6   style-7   style-8   style-9   style-10
 
 # Current Theme
-dir="$HOME/.config/rofi/powermenu/"
+dir="$HOME/.config/rofi/powermenu"
 theme='theme'
 
 # CMDs
@@ -19,28 +19,33 @@ uptime="`uptime -p | sed -e 's/up //g'`"
 host=`hostname`
 
 # Options
-shutdown='⏻ '
-reboot=' '
-lock=''
-suspend=' '
-logout='󰍃 '
-yes=''
-no=''
+shutdown=''
+reboot=''
+lock=''
+suspend=''
+logout='󰍃'
+yes=''
+no=''
 
 # Rofi CMD
 rofi_cmd() {
 	rofi -dmenu \
-		-p "Goodbye ${USER}" \
+		-p "Uptime: $uptime" \
 		-mesg "Uptime: $uptime" \
 		-theme ${dir}/${theme}.rasi
 }
 
 # Confirmation CMD
 confirm_cmd() {
-	rofi -dmenu \
+	rofi -theme-str 'window {location: center; anchor: center; fullscreen: false; width: 350px;}' \
+		-theme-str 'mainbox {children: [ "message", "listview" ];}' \
+		-theme-str 'listview {columns: 2; lines: 1;}' \
+		-theme-str 'element-text {horizontal-align: 0.5;}' \
+		-theme-str 'textbox {horizontal-align: 0.5;}' \
+		-dmenu \
 		-p 'Confirmation' \
 		-mesg 'Are you Sure?' \
-		-theme ~/.config/rofi/powermenu/confirm.rasi
+		-theme ${dir}/${theme}.rasi
 }
 
 # Ask for confirmation
@@ -66,15 +71,7 @@ run_cmd() {
 			amixer set Master mute
 			systemctl suspend
 		elif [[ $1 == '--logout' ]]; then
-			if [[ "$DESKTOP_SESSION" == 'dwl' ]]; then
-				pkill dwl
-			elif [[ "$DESKTOP_SESSION" == 'hyprland' ]]; then
-				hyprctl dispatch exit
-			# elif [[ "$DESKTOP_SESSION" == 'i3' ]]; then
-			# 	i3-msg exit
-			# elif [[ "$DESKTOP_SESSION" == 'plasma' ]]; then
-			# 	qdbus org.kde.ksmserver /KSMServer logout 0 0 0
-			fi
+			hyprctl dispatch exit
 		fi
 	else
 		exit 0
@@ -91,7 +88,8 @@ case ${chosen} in
 		run_cmd --reboot
         ;;
     $lock)
-		hyprlock        ;;
+		hyprlock
+        ;;
     $suspend)
 		run_cmd --suspend
         ;;

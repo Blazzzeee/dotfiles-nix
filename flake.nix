@@ -12,10 +12,15 @@
     antigravity-nix = {
       url = "github:jacopone/antigravity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };    
+    };
+
+    network_manager_ui = {
+      url = "github:Blazzzeee/network_manager_ui?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, antigravity-nix , ... }:
+  outputs = { nixpkgs, home-manager, antigravity-nix, network_manager_ui, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
@@ -36,6 +41,7 @@
           {
           environment.systemPackages = [
             antigravity-nix.packages.x86_64-linux.default
+            network_manager_ui.packages.x86_64-linux.network_manager_ui
           ];
         }
       ];

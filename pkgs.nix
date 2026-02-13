@@ -20,6 +20,10 @@
         rubyPackages.ruby-lsp
         emmet-language-server
         uv
+        fish
+        kdePackages.kdenlive
+        bzmenu
+        nodejs
     ]
 
     ++ lib.optionals niriEnabled  [

@@ -146,5 +146,5 @@
   services.openssh.enable = true;
   programs.zsh.enable = true;
   services.tailscale.enable = true;
-    programs.nix-ld.enable = true;
+  programs.nix-ld.enable = true;
 }

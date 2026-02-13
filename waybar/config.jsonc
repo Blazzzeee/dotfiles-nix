@@ -111,7 +111,7 @@
     "format-connected": "󰂱 {num_connections}",
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "on-click": "~/.config/scripts/bluetooth.sh"
+    "on-click": "bzmenu --launcher rofi"
   },
 
   "custom/power": {
@@ -127,7 +127,7 @@
     "format-ethernet": "{ifname} ",
     "format-disconnected": " ",
     "max-length": 50,
-    "on-click": "network_manager"
+    "on-click": "network_manager_ui"
   },
 
   "custom/notification": {

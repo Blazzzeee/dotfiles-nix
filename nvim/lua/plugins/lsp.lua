@@ -29,7 +29,7 @@ return {
         vim.keymap.set("n", "<leader>n", vim.lsp.buf.rename, { desc = "Rename symbol" })
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-        -- vim.keymap.set("n", "gr", telescope.lsp_references, { desc = "Goto references" })
+        vim.keymap.set("n", "gr", telescope.lsp_references, { desc = "Goto references" })
         vim.keymap.set("n", "gk", vim.lsp.buf.hover, { desc = "Symbol info" })
         vim.keymap.set("n", "<leader>q", function()
           vim.diagnostic.setqflist()

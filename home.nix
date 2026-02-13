@@ -39,6 +39,7 @@
   programs.zellij.enable = true;
   programs.yazi.enable = true;
   programs.eza.enableZshIntegration = true;
+  programs.fish.enable = true;
 
 
 

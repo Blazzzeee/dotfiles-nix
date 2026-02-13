@@ -41,7 +41,7 @@
           {
           environment.systemPackages = [
             antigravity-nix.packages.x86_64-linux.default
-            network_manager_ui.packages.x86_64-linux.network_manager_ui
+            network_manager_ui.packages.${system}.network_manager_ui
           ];
         }
       ];

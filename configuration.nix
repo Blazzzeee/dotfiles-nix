@@ -12,9 +12,9 @@
 
   # Bootloader.
   boot.loader.grub.enable = false;
-  boot.loader.systemd-boot.enable = false;
+  boot.loader.systemd-boot.enable = true;
 
-  boot.loader.efi.canTouchEfiVariables = false;
+  # boot.loader.efi.canTouchEfiVariables = false;
 
 
   # Use latest kernel.

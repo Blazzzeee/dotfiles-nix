@@ -1,6 +1,10 @@
-{ config, pkgs, niriEnabled , lib , ... }:
-
 {
+  config,
+  pkgs,
+  niriEnabled,
+  lib,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "blazzee";
@@ -18,8 +22,8 @@
     shellAliases = {
       lg = "lazygit";
       y = "yazi";
-      niH = "home-manager switch --flake .";
-      niR = "sudo nixos-rebuild switch --flake .";
+      nih = "home-manager switch --flake .";
+      nir = "sudo nixos-rebuild switch --flake .";
       nv = "nvim";
       n = "nvim .";
     };
@@ -40,8 +44,10 @@
   programs.yazi.enable = true;
   programs.eza.enableZshIntegration = true;
   programs.fish.enable = true;
-
-
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -55,15 +61,19 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-  tofi
-  qutebrowser
-  fd
-  lazygit
-  brave
-  catppuccin-gtk
-  nwg-look
+    tofi
+    qutebrowser
+    fd
+    lazygit
+    brave
+    catppuccin-gtk
+    nwg-look
   ];
 
+  programs.qutebrowser.settings = {
+    "colors.webpage.darkmode.enabled" = true;
+    "content.javascript.clipboard" = "access";
+  };
 
   gtk = {
     enable = true;
@@ -72,31 +82,31 @@
       name = "Catppuccin-Macchiato-Compact-Lavender-Dark";
       package = pkgs.catppuccin-gtk.override {
         variant = "macchiato";
-        accents = [ "lavender" ];
+        accents = ["lavender"];
         size = "compact";
-        tweaks = [ "rimless" "black" ];
+        tweaks = ["rimless" "black"];
       };
     };
   };
 
   # Proper GTK4 theming on Wayland (required!)
   xdg.configFile = {
-    "gtk-4.0/assets" = { 
+    "gtk-4.0/assets" = {
       source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
       force = true;
     };
 
-    "gtk-4.0/gtk.css" = { 
+    "gtk-4.0/gtk.css" = {
       source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
       force = true;
     };
 
-    "gtk-4.0/settings.ini" = { 
+    "gtk-4.0/settings.ini" = {
       source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/settings.ini";
       force = true;
     };
 
-    "gtk-4.0/gtk-dark.css" = { 
+    "gtk-4.0/gtk-dark.css" = {
       source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
       force = true;
     };
@@ -117,126 +127,146 @@
     # '';
     ".config/helix/config.toml" = {
       text = ''
-          theme = "catppuccin_mocha"
+        theme = "catppuccin_mocha"
 
-          [editor]
-          line-number = "relative"
-          end-of-line-diagnostics = "hint"
-          [editor.inline-diagnostics]
-          cursor-line = "warning" # show warnings and errors on the cursorline inline
+        [editor]
+        line-number = "relative"
+        end-of-line-diagnostics = "hint"
+        [editor.inline-diagnostics]
+        cursor-line = "warning" # show warnings and errors on the cursorline inline
 
-          [keys.normal]
-          esc = ["collapse_selection", "keep_primary_selection"]
-          S-r = [":config-reload"] 
-          - = [
-            ':sh rm -f /tmp/unique-file',
-            ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
-            ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
-            ':open %sh{cat /tmp/unique-file}',
-            ':redraw',
-          ]
+        [keys.normal]
+        esc = ["collapse_selection", "keep_primary_selection"]
+        S-r = [":config-reload"]
+        - = [
+          ':sh rm -f /tmp/unique-file',
+          ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+          ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+          ':open %sh{cat /tmp/unique-file}',
+          ':redraw',
+        ]
 
-          [editor.file-picker]
-          hidden = true
-          git-ignore = false
+        [editor.file-picker]
+        hidden = true
+        git-ignore = false
 
-          [editor.indent-guides]
-          render = true
-          character = "|"
-          skip-levels = 1
-          render-blank-lines = true
-        '';
+        [editor.indent-guides]
+        render = true
+        character = "|"
+        skip-levels = 1
+        render-blank-lines = true
+      '';
     };
     ".config/helix/languages.toml" = {
       text = ''
-          [language-server.scls]
-          command = "simple-completion-language-server"
+        [language-server.scls]
+        command = "simple-completion-language-server"
 
-          [language-server.scls.config]
-          feature_words = true
-          feature_snippets = true
-          snippets_first = true
-          snippets_inline_by_word_tail = false
-          feature_unicode_input = false
-          feature_paths = false
-          feature_citations = false
+        [language-server.scls.config]
+        feature_words = true
+        feature_snippets = true
+        snippets_first = true
+        snippets_inline_by_word_tail = false
+        feature_unicode_input = false
+        feature_paths = false
+        feature_citations = false
 
-          [language-server.scls.environment]
-          RUST_LOG = "info,simple-completion-language-server=info"
-          LOG_FILE = "/tmp/completion.log"
+        [language-server.scls.environment]
+        RUST_LOG = "info,simple-completion-language-server=info"
+        LOG_FILE = "/tmp/completion.log"
 
-          [[language]]
-          name = "c"
-          auto-format = true
-          formatter = { command="clang-format", args= ["--assume-filename=.c"]}
-          language-id = "c"
-          language-servers = ["clangd"]
-
-
-          [[language]]
-          name = "python"
-          auto-format = false
-          language-id = "python"
-          language-servers = ["ruff-lsp", "pyright", "scls"]
-          file-types = ["py", "pyi", "pyx"]
-
-          # TypeScript
-          [[language]]
-          name = "typescript"
-          file-types = ["ts"]
-          roots = ["package.json", "tsconfig.json", "jsconfig.json"]
-          language-servers = ["ts_ls"]
-
-          # TypeScript React
-          [[language]]
-          name = "tsx"
-          file-types = ["tsx"]
-          roots = ["package.json", "tsconfig.json", "jsconfig.json"]
-          language-servers = ["ts_ls", "emmet_ls"]
-
-          # JavaScript
-          [[language]]
-          name = "javascript"
-          file-types = ["js"]
-          roots = ["package.json", "tsconfig.json", "jsconfig.json"]
-          language-servers = ["ts_ls"]
-
-          # JavaScript React
-          [[language]]
-          name = "jsx"
-          file-types = ["jsx"]
-          roots = ["package.json", "tsconfig.json", "jsconfig.json"]
-          language-servers = ["ts_ls", "emmet_ls"]
-
-          # Emmet LSP
-          [language-server.emmet_ls]
-          command = "emmet-language-server"
-          args = ["--stdio"]
-
-          # TypeScript LSP
-          [language-server.ts_ls]
-          command = "typescript-language-server"
-          args = ["--stdio"]
+        [[language]]
+        name = "c"
+        auto-format = true
+        formatter = { command="clang-format", args= ["--assume-filename=.c"]}
+        language-id = "c"
+        language-servers = ["clangd"]
 
 
-          [language-server.ruff-lsp]
-          command = "ruff server"
+        [[language]]
+        name = "cpp"
+        auto-format = true
+        formatter = { command="clang-format", args= ["--assume-filename=.cpp"]}
+        language-id = "cpp"
+        language-servers = ["clangd"]
 
 
-          # Ruby
-          [[language]]
-          name = "ruby"
-          file-types = ["rb", "rake", "gemspec", "ru", "thor", "erb"]
-          roots = ["Gemfile"]
-          language-servers = ["ruby-lsp"]
-          auto-format = false
+        [[language]]
+        name = "python"
+        auto-format = false
+        language-id = "python"
+        language-servers = ["ruff-lsp", "pyright", "scls"]
+        file-types = ["py", "pyi", "pyx"]
 
-          # Ruby LSP (uses global binary; bundler fallback handled via Gemfile inclusion)
-          [language-server.ruby-lsp]
-          command = "ruby-lsp"
-          required-root-patterns = ["Gemfile"]
-          config = { formatter = "standard" }
-        '';
+        # TypeScript
+        [[language]]
+        name = "typescript"
+        file-types = ["ts"]
+        roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+        language-servers = ["ts_ls"]
+
+        # TypeScript React
+        [[language]]
+        name = "tsx"
+        file-types = ["tsx"]
+        roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+        language-servers = ["ts_ls", "emmet_ls"]
+
+        # JavaScript
+        [[language]]
+        name = "javascript"
+        file-types = ["js"]
+        roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+        language-servers = ["ts_ls"]
+
+        # JavaScript React
+        [[language]]
+        name = "jsx"
+        file-types = ["jsx"]
+        roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+        language-servers = ["ts_ls", "emmet_ls"]
+
+        # Emmet LSP
+        [language-server.emmet_ls]
+        command = "emmet-language-server"
+        args = ["--stdio"]
+
+        # TypeScript LSP
+        [language-server.ts_ls]
+        command = "typescript-language-server"
+        args = ["--stdio"]
+
+
+        [language-server.ruff-lsp]
+        command = "ruff server"
+
+
+        # Ruby
+        [[language]]
+        name = "ruby"
+        file-types = ["rb", "rake", "gemspec", "ru", "thor", "erb"]
+        roots = ["Gemfile"]
+        language-servers = ["ruby-lsp"]
+        auto-format = false
+
+        # Ruby LSP (uses global binary; bundler fallback handled via Gemfile inclusion)
+        [language-server.ruby-lsp]
+        command = "ruby-lsp"
+        required-root-patterns = ["Gemfile"]
+        config = { formatter = "standard" }
+
+
+        # Nix language
+        [[language]]
+        name = "nix"
+        file-types = ["nix"]
+        auto-format = true
+        formatter = { command = "alejandra" }
+        language-servers = ["nil"]
+
+        [language-server.nil]
+        command = "nil"
+      '';
     };
   };
 
@@ -287,60 +317,64 @@
     recursive = true;
   };
 
-programs.sherlock = {
-  enable = false;
+  programs.sherlock = {
+    enable = false;
 
-  # to run sherlock as a daemon
-  systemd.enable = true;
+    # to run sherlock as a daemon
+    systemd.enable = true;
 
-  # If wanted, you can use this line for the _latest_ package. / Otherwise, you're relying on nixpkgs to update it frequently enough.
-  # For this to work, make sure to add sherlock as a flake input!
-  # package = inputs.sherlock.packages.${pkgs.system}.default;
+    # If wanted, you can use this line for the _latest_ package. / Otherwise, you're relying on nixpkgs to update it frequently enough.
+    # For this to work, make sure to add sherlock as a flake input!
+    # package = inputs.sherlock.packages.${pkgs.system}.default;
 
-  # config.toml
-  settings = {};
+    # config.toml
+    settings = {};
 
-  # sherlock_alias.json
-  aliases = {
-    vesktop = { name = "Discord"; };
+    # sherlock_alias.json
+    aliases = {
+      vesktop = {name = "Discord";};
+    };
+
+    # sherlockignore
+    ignore = ''
+      Avahi*
+    '';
+
+    # fallback.json
+    launchers = [
+      {
+        name = "Calculator";
+        type = "calculation";
+        args = {
+          capabilities = [
+            "calc.math"
+            "calc.units"
+          ];
+        };
+        priority = 1;
+      }
+      {
+        name = "App Launcher";
+        type = "app_launcher";
+        args = {};
+        priority = 2;
+        home = "Home";
+      }
+    ];
+
+    # main.css
+    style =
+      /*
+      css
+      */
+      ''
+        * {
+          font-family: sans-serif;
+        }
+      '';
   };
-
-  # sherlockignore
-  ignore = ''
-    Avahi*
-  '';
-
-  # fallback.json
-  launchers = [
-    {
-      name = "Calculator";
-      type = "calculation";
-      args = {
-        capabilities = [
-          "calc.math"
-          "calc.units"
-        ];
-      };
-      priority = 1;
-    }
-    {
-      name = "App Launcher";
-      type = "app_launcher";
-      args = {};
-      priority = 2;
-      home = "Home";
-    }
-  ];
-
-  # main.css
-  style = /* css */ ''
-    * {
-      font-family: sans-serif;
-    }
-  '';
-};
-  home.file.".config/tofi/config.toml" = { 
-      source = pkgs.writeText "tofi-config" ''
+  home.file.".config/tofi/config.toml" = {
+    source = pkgs.writeText "tofi-config" ''
       # Nordbones-inspired Tofi config (no red, no transparency)
 
       font = JetBrainsMono Nerd Font
@@ -348,7 +382,7 @@ programs.sherlock = {
 
       background-color = #111111
       text-color = #f9fbff
-      selection-color = #5e81ac 
+      selection-color = #5e81ac
 
       outline-width = 0
       border-width = 0
@@ -383,24 +417,24 @@ programs.sherlock = {
   #  /etc/profiles/per-user/blazzee/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-      EDITOR = "nvim";
+    EDITOR = "nvim";
     # EDITOR = "emacs";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.kitty = {
-   enable = true;
-   theme = "Catppuccin-Mocha";
-   font = {
-	name = "JetBrainsMono Nerd Font";
-	size = 14;
-   };
-   settings = {
+    enable = true;
+    theme = "Catppuccin-Mocha";
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 14;
+    };
+    settings = {
       background_opacity = "1.0";
       confirm_os_window_close = 0;
       enable_audio_bell = false;
-      hide_window_decorations = "yes"; 
+      hide_window_decorations = "yes";
     };
   };
 }

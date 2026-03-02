@@ -18,14 +18,23 @@
       url = "github:Blazzzeee/network_manager_ui?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hellpaper = {
+      url = "path:./hellpaper";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, antigravity-nix, network_manager_ui, ... }:
-  let
+  outputs = {
+    nixpkgs,
+    home-manager,
+    antigravity-nix,
+    network_manager_ui,
+    hellpaper,
+    ...
+  }: let
     system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
+    pkgs = import nixpkgs {inherit system;};
     niriEnabled = true;
-
   in {
     # --- NixOS system ---
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -38,29 +47,27 @@
       modules = [
         ./configuration.nix
         ./pkgs.nix
-          {
+        {
           environment.systemPackages = [
             antigravity-nix.packages.x86_64-linux.default
             network_manager_ui.packages.${system}.network_manager_ui
+            hellpaper.packages.${system}.default
           ];
         }
       ];
     };
 
     # --- Standalone Home Manager ---
-    homeConfigurations.blazzee =
-      home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-       
-        modules = [
-          ./home.nix
+    homeConfigurations.blazzee = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      modules = [
+        ./home.nix
       ];
 
       extraSpecialArgs = {
         inherit niriEnabled;
-          };
-
       };
+    };
   };
 }
-

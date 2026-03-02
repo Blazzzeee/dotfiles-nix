@@ -51,3 +51,20 @@ local function toggle_term()
 end
 
 vim.keymap.set({ "n", "t" }, "<leader>t", toggle_term, {desc="Toggle terminal"})
+local function open_build_split()
+    -- Open right vertical split
+    vim.cmd("vsplit")
+    vim.cmd("wincmd L") -- move it to far right
+
+    -- Resize if you want (optional)
+    vim.cmd("vertical resize 60")
+
+    -- Open terminal and run build script
+    vim.cmd("term nix develop --command bash -c './build.sh'")
+
+    -- Optional: start in insert mode automatically
+    vim.cmd("startinsert")
+end
+
+
+vim.keymap.set("n", "C", open_build_split, { desc = "Build in right split" })

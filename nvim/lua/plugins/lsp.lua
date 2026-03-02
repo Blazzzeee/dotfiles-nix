@@ -2,12 +2,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {  },
     config = function()
-      local lspconfig = require("lspconfig")
 
       local servers = {
-        -- name = settings
         clangd = {},
         lua_ls = {},
         pyright = {},
@@ -17,7 +14,6 @@ return {
             workingDirectory = { mode = "auto" },
           },
         },
-
         ruby_lsp = {},
       }
 
@@ -26,25 +22,27 @@ return {
           client.server_capabilities.documentFormattingProvider = false
         end
 
-        vim.keymap.set("n", "<leader>n", vim.lsp.buf.rename, { desc = "Rename symbol" })
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-        vim.keymap.set("n", "gr", telescope.lsp_references, { desc = "Goto references" })
-        vim.keymap.set("n", "gk", vim.lsp.buf.hover, { desc = "Symbol info" })
+        vim.keymap.set("n", "<leader>n", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename symbol" })
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code actions" })
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
+        vim.keymap.set("n", "gk", vim.lsp.buf.hover, { buffer = bufnr, desc = "Symbol info" })
         vim.keymap.set("n", "<leader>q", function()
           vim.diagnostic.setqflist()
-        end, { desc = "Diagnostics to quickfix list" })
+        end, { buffer = bufnr, desc = "Diagnostics to quickfix list" })
       end
 
+      -- Setup servers
       for server, settings in pairs(servers) do
-        lspconfig[server].setup({
+        vim.lsp.config(server, {
           on_attach = on_attach,
           settings = settings,
         })
+
+        vim.lsp.enable(server)
       end
 
-      -- Manual setup for Emmet LSP (not managed by Mason)
-      lspconfig.emmet_language_server.setup({
+      -- Emmet (manual config)
+      vim.lsp.config("emmet_language_server", {
         filetypes = {
           "css", "eruby", "html", "javascript", "javascriptreact",
           "less", "sass", "scss", "pug", "typescriptreact",
@@ -61,6 +59,8 @@ return {
           variables = {},
         },
       })
+
+      vim.lsp.enable("emmet_language_server")
     end,
   },
 }

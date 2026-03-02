@@ -1,32 +1,39 @@
-{ config , pkgs , lib, niriEnabled , ... }:
-
 {
-    environment.systemPackages = with pkgs; [
-        kitty
-        nerd-fonts.jetbrains-mono
-        vimix-cursors
-        wl-clipboard
-        pavucontrol
-        brightnessctl
-        arp-scan
-        tailscale
-        libnotify
-        dnsutils
-        clang-tools
-        lua-language-server
-        pyright
-        nodePackages.typescript-language-server
-        nodePackages.eslint
-        rubyPackages.ruby-lsp
-        emmet-language-server
-        uv
-        fish
-        kdePackages.kdenlive
-        bzmenu
-        nodejs
+  config,
+  pkgs,
+  lib,
+  niriEnabled,
+  ...
+}: {
+  environment.systemPackages = with pkgs;
+    [
+      kitty
+      nerd-fonts.jetbrains-mono
+      vimix-cursors
+      wl-clipboard
+      pavucontrol
+      brightnessctl
+      arp-scan
+      tailscale
+      libnotify
+      dnsutils
+      clang-tools
+      lua-language-server
+      pyright
+      nodePackages.typescript-language-server
+      nodePackages.eslint
+      rubyPackages.ruby-lsp
+      emmet-language-server
+      uv
+      fish
+      kdePackages.kdenlive
+      bzmenu
+      nodejs
+      nil
+      alejandra
+      statix
     ]
-
-    ++ lib.optionals niriEnabled  [
-        niri 
-    ]; 
+    ++ lib.optionals niriEnabled [
+      niri
+    ];
 }

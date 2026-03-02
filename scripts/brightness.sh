@@ -1,29 +1,49 @@
 #!/usr/bin/env bash
 
-ICON_DIR="$HOME/.config/scripts/brightness"  
+ICON_DIR="$HOME/.config/scripts/brightness"
+ID_FILE="/tmp/brightness_notify_id"
 
-# Send a notification with an appropriate PNG icon
+# Read the previous notification ID (0 means "new notification")
+read_id() {
+    if [[ -f "$ID_FILE" ]]; then
+        cat "$ID_FILE"
+    else
+        echo 0
+    fi
+}
+
+# Send a notification via D-Bus so that replace-id actually works
 notify_brightness() {
-    local max cur pct icon
+    local max cur pct icon prev_id new_id
 
-    max=$(brightnessctl max)           # Maximum brightness value :contentReference[oaicite:7]{index=7}
-    cur=$(brightnessctl get)           # Current brightness value :contentReference[oaicite:8]{index=8}
-    pct=$(( cur * 100 / max ))         # Integer percentage :contentReference[oaicite:9]{index=9}
+    max=$(brightnessctl max)
+    cur=$(brightnessctl get)
+    pct=$(( cur * 100 / max ))
 
     if   (( pct == 100 )); then icon="full.png"
     elif (( pct >  66  )); then icon="full-1.png"
     elif (( pct >  33  )); then icon="full-2.png"
-    else                       icon="empty.png"
+    else                        icon="empty.png"
     fi
 
-notify-send \
-  --replace-id=777 \
-  -a "Brightness" \
-  "${pct}%" \
-  "" \
-  --hint string:image-path:"$ICON_DIR/$icon" \
-  --hint string:category:brightness \
-  -t 1000
+    prev_id=$(read_id)
+
+    new_id=$(gdbus call --session \
+        --dest org.freedesktop.Notifications \
+        --object-path /org/freedesktop/Notifications \
+        --method org.freedesktop.Notifications.Notify \
+        "Brightness" \
+        "$prev_id" \
+        "file://$ICON_DIR/$icon" \
+        "${pct}%" \
+        "" \
+        "[]" \
+        "{'category': <'brightness'>}" \
+        "int32 1000")
+
+    # gdbus returns "(uint32 <ID>,)" — extract the number
+    new_id=$(echo "$new_id" | sed 's/[^0-9]//g')
+    echo "$new_id" > "$ID_FILE"
 }
 
 if [[ $# -lt 1 ]] || [[ ! $1 =~ ^(inc|dec)$ ]]; then

@@ -2,10 +2,20 @@
 
 ICON_DIR="$HOME/.config/scripts/volume"
 STEP="10%"
+ID_FILE="/tmp/volume_notify_id"
 
-# Send a notification with an appropriate PNG icon
+# Read the previous notification ID (0 means "new notification")
+read_id() {
+    if [[ -f "$ID_FILE" ]]; then
+        cat "$ID_FILE"
+    else
+        echo 0
+    fi
+}
+
+# Send a notification via D-Bus so that replace-id actually works
 notify_volume() {
-    local vol muted icon
+    local vol muted icon prev_id new_id
 
     vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}')
     vol=${vol%.*}  # Trim decimal part
@@ -17,19 +27,29 @@ notify_volume() {
     else
         if   (( vol > 66 )); then icon="full.png"
         elif (( vol > 33 )); then icon="full-1.png"
-        else                     icon="full-2.png"
+        else                      icon="full-2.png"
         fi
         vol="${vol}%"
     fi
 
-    notify-send \
-      --replace-id=778 \
-      -a "Volume" \
-      "$vol" \
-      "" \
-      --hint string:image-path:"$ICON_DIR/$icon" \
-      --hint string:category:audio.volume \
-      -t 1000
+    prev_id=$(read_id)
+
+    new_id=$(gdbus call --session \
+        --dest org.freedesktop.Notifications \
+        --object-path /org/freedesktop/Notifications \
+        --method org.freedesktop.Notifications.Notify \
+        "Volume" \
+        "$prev_id" \
+        "file://$ICON_DIR/$icon" \
+        "$vol" \
+        "" \
+        "[]" \
+        "{'category': <'audio.volume'>}" \
+        "int32 1000")
+
+    # gdbus returns "(uint32 <ID>,)" — extract the number
+    new_id=$(echo "$new_id" | sed 's/[^0-9]//g')
+    echo "$new_id" > "$ID_FILE"
 }
 
 if [[ $# -lt 1 ]] || [[ ! $1 =~ ^(inc|dec|toggle)$ ]]; then

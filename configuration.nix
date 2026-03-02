@@ -93,7 +93,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "blazzee";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm"];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -147,4 +147,12 @@
   programs.zsh.enable = true;
   services.tailscale.enable = true;
   programs.nix-ld.enable = true;
+
+  
+  # VM related stuff here
+    virtualisation.libvirtd.enable = true;
+
+    programs.virt-manager.enable = true;
+
+    virtualisation.spiceUSBRedirection.enable = true;
 }

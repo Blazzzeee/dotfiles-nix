@@ -32,8 +32,14 @@
       nil
       alejandra
       statix
+      slack
+      github-copilot-cli
+      cloudflared
+      ncdu
     ]
     ++ lib.optionals niriEnabled [
       niri
     ];
+
+  services.zerotierone.enable = true;
 }

@@ -1,21 +1,21 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = false;
   boot.loader.systemd-boot.enable = true;
 
   # boot.loader.efi.canTouchEfiVariables = false;
-
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -55,7 +55,6 @@
   services.xserver.displayManager.gdm.enable = false;
   services.xserver.desktopManager.gnome.enable = true;
 
-  
   services.xserver.displayManager.lightdm.enable = false;
   services.xserver.displayManager.sddm.enable = false;
 
@@ -93,12 +92,12 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "blazzee";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm"];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
-  
+
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -108,12 +107,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  wget
-  git
-  curl
-  openssh
-  ripgrep
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    git
+    curl
+    openssh
+    ripgrep
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -148,11 +147,30 @@
   services.tailscale.enable = true;
   programs.nix-ld.enable = true;
 
-  
-  # VM related stuff here
-    virtualisation.libvirtd.enable = true;
+  networking.nameservers = ["1.1.1.1" "8.8.8.8"];
 
-    programs.virt-manager.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    xorg.libxcb
+    xorg.libX11
+    xorg.libXext
+    xorg.libXrandr
+    xorg.libXcomposite
+    xorg.libXcursor
+    xorg.libXdamage
+    xorg.libXfixes
+    xorg.libXi
+    xorg.libXrender
+    gtk3
+    glib
+    pango
+    cairo
+    gdk-pixbuf
+    dbus
+    alsa-lib
+    freetype
+    fontconfig
+  ];
 
-    virtualisation.spiceUSBRedirection.enable = true;
+  hardware.graphics.enable = true;
 }

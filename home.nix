@@ -5,6 +5,10 @@
   lib,
   ...
 }: {
+  imports = [
+    ./hyprland.nix
+  ];
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "blazzee";
@@ -16,7 +20,6 @@
   programs.eza.icons = "always";
   services.swww.enable = true;
   services.swaync.enable = true;
-  wayland.windowManager.hyprland.enable = true;
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -48,6 +51,7 @@
     enable = true;
     nix-direnv.enable = true;
   };
+  programs.codex.enable = true;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -68,6 +72,8 @@
     brave
     catppuccin-gtk
     nwg-look
+    gemini-cli
+    btop
   ];
 
   programs.qutebrowser.settings = {
@@ -146,10 +152,6 @@
           ':redraw',
         ]
 
-        [editor.file-picker]
-        hidden = true
-        git-ignore = false
-
         [editor.indent-guides]
         render = true
         character = "|"
@@ -204,6 +206,7 @@
         file-types = ["ts"]
         roots = ["package.json", "tsconfig.json", "jsconfig.json"]
         language-servers = ["ts_ls"]
+        auto-format = true
 
         # TypeScript React
         [[language]]
@@ -211,6 +214,7 @@
         file-types = ["tsx"]
         roots = ["package.json", "tsconfig.json", "jsconfig.json"]
         language-servers = ["ts_ls", "emmet_ls"]
+        auto-format = true
 
         # JavaScript
         [[language]]
@@ -218,6 +222,7 @@
         file-types = ["js"]
         roots = ["package.json", "tsconfig.json", "jsconfig.json"]
         language-servers = ["ts_ls"]
+        auto-format = true
 
         # JavaScript React
         [[language]]
@@ -225,6 +230,7 @@
         file-types = ["jsx"]
         roots = ["package.json", "tsconfig.json", "jsconfig.json"]
         language-servers = ["ts_ls", "emmet_ls"]
+        auto-format = true
 
         # Emmet LSP
         [language-server.emmet_ls]
@@ -268,6 +274,15 @@
         command = "nil"
       '';
     };
+
+    ".config/helix/themes/transparent.toml".text = ''
+      inherits = "catppuccin_mocha"
+
+      "ui.background" = { bg = "none" }
+      "ui.text" = { bg = "none" }
+      "ui.linenr" = { bg = "none" }
+      "ui.linenr.selected" = { bg = "none" }
+    '';
   };
 
   home.file.".config/hypr" = {
@@ -425,16 +440,20 @@
   programs.home-manager.enable = true;
   programs.kitty = {
     enable = true;
-    theme = "Catppuccin-Mocha";
+    themeFile = "Catppuccin-Mocha";
     font = {
       name = "JetBrainsMono Nerd Font";
       size = 14;
     };
     settings = {
-      background_opacity = "1.0";
+      background = "#000000";
+      background_opacity = "0.65";
       confirm_os_window_close = 0;
       enable_audio_bell = false;
       hide_window_decorations = "yes";
+    };
+    keybindings = {
+      "ctrl+t" = "new_tab_with_cwd";
     };
   };
 }

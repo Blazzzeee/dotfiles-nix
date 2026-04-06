@@ -19,6 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland-osd = {
+      url = "path:./hyprland-osd";
+    };
+
     hellpaper = {
       url = "path:./hellpaper";
     };
@@ -29,6 +33,7 @@
     home-manager,
     antigravity-nix,
     network_manager_ui,
+    hyprland-osd,
     hellpaper,
     ...
   }: let
@@ -52,6 +57,7 @@
             antigravity-nix.packages.x86_64-linux.default
             network_manager_ui.packages.${system}.network_manager_ui
             hellpaper.packages.${system}.default
+            hyprland-osd.packages.${system}.default
           ];
         }
       ];

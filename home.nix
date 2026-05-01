@@ -233,7 +233,8 @@
 
         [keys.normal]
         esc = ["collapse_selection", "keep_primary_selection"]
-        S-r = [":config-reload"]
+        y = ":clipboard-yank"
+        p = ["delete_selection", ":clipboard-paste-before"]
         - = [
           ':sh rm -f /tmp/unique-file',
           ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
@@ -337,20 +338,17 @@
         command = "ruff server"
 
 
-        # Ruby
         [[language]]
         name = "ruby"
         file-types = ["rb", "rake", "gemspec", "ru", "thor", "erb"]
         roots = ["Gemfile"]
         language-servers = ["ruby-lsp"]
-        auto-format = false
+        auto-format = true
 
-        # Ruby LSP (uses global binary; bundler fallback handled via Gemfile inclusion)
         [language-server.ruby-lsp]
         command = "ruby-lsp"
         required-root-patterns = ["Gemfile"]
-        config = { formatter = "standard" }
-
+        config = { formatter = "none" }
 
         # Nix language
         [[language]]

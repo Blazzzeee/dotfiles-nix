@@ -26,6 +26,11 @@
     hellpaper = {
       url = "path:./hellpaper";
     };
+
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -35,6 +40,7 @@
     network_manager_ui,
     hyprland-osd,
     hellpaper,
+    zen-browser,
     ...
   }: let
     system = "x86_64-linux";
@@ -58,6 +64,7 @@
             network_manager_ui.packages.${system}.network_manager_ui
             hellpaper.packages.${system}.default
             hyprland-osd.packages.${system}.default
+            zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
           ];
         }
       ];

@@ -17,7 +17,6 @@
         "waybar &"
         "swww-daemon --format xrgb"
         "swaync &"
-        "swayosd &"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
 
@@ -35,7 +34,18 @@
         "col.inactive_border" = "rgb(585b70)";
         resize_on_border = true;
         allow_tearing = false;
-        layout = "dwindle";
+        layout = "scrolling";
+      };
+
+      plugin = {
+        hyprscrolling = {
+          fullscreen_on_one_column = true;
+          column_width = 0.5;
+          focus_fit_method = 1;
+          wrap_focus = true;
+          wrap_swapcol = true;
+          explicit_column_widths = "0.33, 0.5, 0.66, 1.0";
+        };
       };
 
       misc = {
@@ -111,8 +121,8 @@
         "$mainMod , O , exec, $menu"
 
         # Focus and Movement
-        "$mainMod, h, movefocus, l"
-        "$mainMod, l, movefocus, r"
+        "$mainMod, h, layoutmsg, focus l"
+        "$mainMod, l, layoutmsg, focus r"
         "$mainMod, k, movefocus, u"
         "$mainMod, j, movefocus, d"
 
@@ -141,16 +151,16 @@
         "$mainMod , w , togglespecialworkspace, 10"
 
         # Swapping and Organising
-        "$mainMod SHIFT, h, movewindow, l"
-        "$mainMod SHIFT, l, movewindow, r"
-        "$mainMod SHIFT, k, movewindow, u"
-        "$mainMod SHIFT, j, movewindow, d"
+        "SUPER SHIFT, h, layoutmsg, swapcol l"
+        "SUPER SHIFT, l, layoutmsg, swapcol r"
+        "SUPER SHIFT, k, movewindow, u"
+        "SUPER SHIFT, j, movewindow, d"
 
         # Resizing
-        "$mainMod CTRL, h, resizeactive, -20 0"
-        "$mainMod CTRL, l, resizeactive, 20 0"
-        "$mainMod CTRL, j, resizeactive, 0 20"
-        "$mainMod CTRL, k, resizeactive, 0 -20"
+        "SUPER CTRL, h, layoutmsg, colresize -conf"
+        "SUPER CTRL, l, layoutmsg, colresize +conf"
+        "SUPER CTRL, j, resizeactive, 0 -20"
+        "SUPER CTRL, k, resizeactive, 0 20"
 
         "$mainMod, S, togglespecialworkspace, magic"
         "$mainMod SHIFT, S, movetoworkspace, special:magic"
@@ -161,9 +171,13 @@
         "$mainMod, Q , workspace, e+1"
         "$mainMod, E, workspace, e-1"
 
+        "$mainMod, M, layoutmsg, promote"
+        "$mainMod, A, layoutmsg, fit active"
+        "$mainMod, comma, layoutmsg, move -col"
+        "$mainMod, period, layoutmsg, move +col"
+
         ",Print, exec, grim ~/Pictures/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png && notify-send 'Screenshot Captured' 'Saved to ~/Pictures'"
         "Shift,Print, exec, grim -g \"$(slurp)\" ~/Pictures/screenshot_area_$(date +%Y-%m-%d_%H-%M-%S).png && notify-send 'Screenshot Captured' 'Area screenshot saved to ~/Pictures'"
-
       ];
 
       bindm = [
@@ -172,16 +186,12 @@
       ];
 
       bindel = [
-        ",XF86AudioRaiseVolume, exec, swayosd --output-volume raise"
-        ",XF86AudioLowerVolume, exec, swayosd --output-volume lower"
-        ",XF86AudioMute, exec, swayosd --output-volume mute-toggle"
-        ",XF86AudioMicMute, exec, swayosd --input-volume mute-toggle"
-        ",XF86MonBrightnessUp, exec, swayosd --brightness raise"
-        ",XF86MonBrightnessDown, exec, swayosd --brightness lower"
-      ];
-
-      bindr = [
-        ",Caps_Lock, exec, swayosd --caps-lock"
+        ",XF86AudioRaiseVolume, exec, $volume inc"
+        ",XF86AudioLowerVolume, exec, $volume dec"
+        ",XF86AudioMute, exec, $volume toggle"
+        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ",XF86MonBrightnessUp, exec, $brightness inc"
+        ",XF86MonBrightnessDown, exec,$brightness dec"
       ];
 
       bindl = [

@@ -1,7 +1,7 @@
 @import "color.css";
 
 * {
-  font-family: "JetBrainsMono Nerd Font";
+  font-family: "JetBrainsMono Nerd";
   font-size: 1.1rem;
   font-weight: 600;
   color: @color5; /* Replaced @nord5 */

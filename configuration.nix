@@ -5,7 +5,26 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  hyprlandHmSession = pkgs.stdenv.mkDerivation {
+    pname = "hyprland-hm-session";
+    version = "1.0";
+    dontUnpack = true;
+    installPhase = ''
+      mkdir -p $out/share/wayland-sessions
+      cat > $out/share/wayland-sessions/hyprland.desktop <<EOF
+      [Desktop Entry]
+      Name=Hyprland (HM)
+      Comment=Hyprland via Home Manager
+      Exec=${config.users.users.blazzee.home}/.nix-profile/bin/Hyprland
+      TryExec=${config.users.users.blazzee.home}/.nix-profile/bin/Hyprland
+      Type=Application
+      DesktopNames=Hyprland
+      EOF
+    '';
+    passthru.providedSessions = ["hyprland"];
+  };
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -30,6 +49,11 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness"
+    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/backlight/%k/brightness"
+  '';
+
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
 
@@ -51,9 +75,17 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    config.common.default = "*";
+  };
+
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = false;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = false;
+  services.xserver.desktopManager.gnome.enable = false;
+  services.displayManager.ly.enable = true;
+  services.displayManager.sessionPackages = [hyprlandHmSession];
 
   services.xserver.displayManager.lightdm.enable = false;
   services.xserver.displayManager.sddm.enable = false;
@@ -92,7 +124,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "blazzee";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "video" "bluetooth"];
     packages = with pkgs; [
       #  thunderbird
     ];
@@ -146,6 +178,36 @@
   programs.zsh.enable = true;
   services.tailscale.enable = true;
   programs.nix-ld.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+  # services.power-profiles-daemon.enable = true;
+
+  networking.networkmanager.wifi.powersave = true;
+  services.tlp = {
+    enable = true;
+
+    settings = {
+      WIFI_PWR_ON_AC = "off";
+      WIFI_PWR_ON_BAT = "on";
+
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+
+      # Enable radio device wizard behavior
+      DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
+      DEVICES_TO_ENABLE_ON_STARTUP = "wifi";
+
+      # Auto-toggle radios based on network
+      DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi";
+      DEVICES_TO_ENABLE_ON_LAN_CONNECT = "";
+
+      DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "";
+      DEVICES_TO_ENABLE_ON_WIFI_CONNECT = "wifi";
+    };
+  };
 
   networking.nameservers = ["1.1.1.1" "8.8.8.8"];
 
@@ -172,5 +234,24 @@
     fontconfig
   ];
 
-  hardware.graphics.enable = true;
+  fonts = {
+    fontconfig.enable = true;
+    packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      font-awesome
+    ];
+  };
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      mesa
+      libva
+      libva-utils
+    ];
+  };
+
+  services.dbus.enable = true;
+  programs.dconf.enable = true;
 }

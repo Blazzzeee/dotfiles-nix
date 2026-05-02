@@ -9,6 +9,7 @@
     [
       kitty
       nerd-fonts.jetbrains-mono
+      font-awesome
       vimix-cursors
       wl-clipboard
       pavucontrol
@@ -36,10 +37,13 @@
       github-copilot-cli
       cloudflared
       ncdu
+      hyprshot
+      discord
+      cmatrix
+      wiremix
+      powertop
     ]
     ++ lib.optionals niriEnabled [
       niri
     ];
-
-  services.zerotierone.enable = true;
 }

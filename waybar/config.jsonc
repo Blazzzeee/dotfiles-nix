@@ -51,7 +51,7 @@
 },
 
 "memory": {
-  "format": "󰘚  {percentage}%",
+  "format": "󰘚 {percentage}%",
   "tooltip": true,
   "tooltip-format": "RAM Used: {used}GB / {total}GB",
   "interval": 2
@@ -79,8 +79,8 @@
   "battery": {
     "format": "<span font='JetBrainsMono Nerd Font 11'>{icon}</span> {capacity}%",
     "format-icons": [" ", " ", " ", " ", " "],
-    "format-charging": "<span font='JetBrainsMono Nerd Font'></span>  <span font='JetBrainsMono Nerd Font 11'>{icon}</span>  {capacity}%",
-    "format-full": "<span font='JetBrainsMono Nerd Font'></span>  <span font='JetBrainsMono Nerd Font 11'>{icon}</span>  charged",
+    "format-charging": "<span font='JetBrainsMono Nerd Font'> </span><span font='JetBrainsMono Nerd Font 11'>{icon}</span>{capacity}%",
+    "format-full": "<span font='JetBrainsMono Nerd Font'> </span><span font='JetBrainsMono Nerd Font 11'>{icon}</span>charged",
     "interval": 30,
     "states": {
       "warning": 15,
@@ -90,8 +90,8 @@
   },
 
   "pulseaudio": {
-    "format": "{icon} {volume}%",
-    "format-muted": "  muted",
+    "format": "{icon}{volume}%",
+    "format-muted": " muted",
     "format-icons": {
       "headphone": " ",
       "default": [" ", " ", " "]
@@ -121,9 +121,9 @@
   },
 
   "network": {
-    "format-wifi": "{icon}   {essid}",
+    "format-wifi": "{icon}{essid}",
     "tooltip-format": "{icon} {essid}",
-    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
     "format-ethernet": "{ifname} ",
     "format-disconnected": " ",
     "max-length": 50,

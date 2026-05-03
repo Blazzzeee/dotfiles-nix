@@ -1,9 +1,9 @@
 --Execute lua file
 vim.api.nvim_set_keymap("", "<Up>", "<Nop>", {})
-    vim.keymap.del("n", "grr")
-    vim.keymap.del("n", "gri")
-    vim.keymap.del("n", "grn")
-    vim.keymap.del("n", "gra")
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "gri")
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "gra")
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "lua",
 	callback = function()
@@ -29,10 +29,12 @@ vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>", { desc = "Quickfix next item" })
 -- Helix-style movement mappings
 vim.keymap.set("n", "<leader>q", "<cmd>Neotree toggle<CR>", { desc = "Open file tree" })
 
-vim.keymap.set({"n", "v", "o"}, "gh", "^", { desc = "Goto line start", noremap = true })
-vim.keymap.set({"n", "v", "o"}, "gl", "$", { desc = "Goto line end", noremap = true })
-vim.keymap.set({"n", "v", "o"}, "gg", "gg", { desc = "Goto file start", noremap = true })
-vim.keymap.set({"n", "v", "o"}, "ge", "G", { desc = "Goto file end", noremap = true })
-vim.keymap.set({"n", "v", "o"}, "gw", "w", { desc = "Next word", noremap = true })
-vim.keymap.set({"n", "v", "o"}, "gx", "<nop>", { desc = "", noremap = true })
+vim.keymap.set({ "n", "v", "o" }, "gh", "^", { desc = "Goto line start", noremap = true })
+vim.keymap.set({ "n", "v", "o" }, "gl", "$", { desc = "Goto line end", noremap = true })
+vim.keymap.set({ "n", "v", "o" }, "gg", "gg", { desc = "Goto file start", noremap = true })
+vim.keymap.set({ "n", "v", "o" }, "ge", "G", { desc = "Goto file end", noremap = true })
+vim.keymap.set({ "n", "v", "o" }, "gw", "w", { desc = "Next word", noremap = true })
+vim.keymap.set({ "n", "v", "o" }, "gx", "<nop>", { desc = "", noremap = true })
 
+--Convinient saves
+vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })

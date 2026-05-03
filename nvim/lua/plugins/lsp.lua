@@ -15,6 +15,7 @@ return {
           },
         },
         ruby_lsp = {},
+        nil_ls = {}
       }
 
       local on_attach = function(client, bufnr)

@@ -23,12 +23,12 @@ configuration {
 }
 
 window {
-    padding: 1%;
+    padding: 1.2%;
     anchor: north;
     location: north;
-    height: 5%;
+    height: 5.5%;
     width: 100%;
-    y-offset: -4.7%;
+    y-offset: -5%;
     background-color: @bg;
     children: [ horibox ];
 }

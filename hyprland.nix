@@ -56,7 +56,7 @@
         };
         blur = {
           enabled = true;
-          size = 1;
+          size = 2;
           passes = 3;
           popups = false;
           vibrancy = 0.85;
@@ -163,7 +163,6 @@
 
         ",Print, exec, grim ~/Pictures/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png && notify-send 'Screenshot Captured' 'Saved to ~/Pictures'"
         "Shift,Print, exec, grim -g \"$(slurp)\" ~/Pictures/screenshot_area_$(date +%Y-%m-%d_%H-%M-%S).png && notify-send 'Screenshot Captured' 'Area screenshot saved to ~/Pictures'"
-
       ];
 
       bindm = [
@@ -200,12 +199,17 @@
       ];
 
       layerrule = [
-        "blur, waybar"
         "ignorealpha 0.5, waybar"
         "blur, swaync-control-center"
         "ignorealpha 0.5, swaync-control-center"
+        "animation slide right, swaync-control-center"
         "blur, swaync-notification-window"
         "ignorealpha 0.5, swaync-notification-window"
+        "animation slide right, swaync-notification-window"
+        "blur, rofi"
+        "ignorealpha 0.2, rofi"
+        "dimaround, rofi"
+        "animation slide top, rofi"
       ];
 
       animations = {

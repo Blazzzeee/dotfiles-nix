@@ -16,19 +16,15 @@ return {
             default = { "lsp", "path", "snippets", "buffer" },
             providers = {
               lsp = {
-                min_keyword_length = 3,
                 max_items = 3,
               },
               path = {
                 max_items = 3,
-                min_keyword_length = 3,
               },
               buffer = {
-                min_keyword_length = 3,
                 max_items = 3,
               },
               snippets = {
-                min_keyword_length = 3,
               },
             },
           },

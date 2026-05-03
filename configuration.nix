@@ -197,7 +197,6 @@ in {
       CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
 
       # Enable radio device wizard behavior
-      DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
       DEVICES_TO_ENABLE_ON_STARTUP = "wifi";
 
       # Auto-toggle radios based on network

@@ -34,6 +34,7 @@
       # Make Alt+Backspace delete backward word
       bindkey '^[^?' backward-kill-word
       bindkey '^[\b' backward-kill-word
+      bindkey '^I' autosuggest-accept
     '';
   };
 
@@ -47,84 +48,76 @@
     enable = true;
     enableZshIntegration = true;
     configFile = pkgs.writeText "omp-config.toml" ''
-      version = 3
-      final_space = true
+    version = 4
+    final_space = true
 
-      [palette]
-        blue = '#8CAAEE'
-        closer = 'p:os'
-        lavender = '#BABBF1'
-        os = '#ACB0BE'
-        pink = '#F4B8E4'
+    [palette]
+      blue = '#8CAAEE'
+      lavender = '#BABBF1'
+      os = '#ACB0BE'
+      pink = '#F4B8E4'
 
-      [upgrade]
-        source = 'cdn'
-        interval = '168h'
-        auto = false
-        notice = false
+    [transient_prompt]
+      template = " $ "
+      foreground = "#ffffff"
+      background = "transparent"
 
-      [[blocks]]
-        type = 'prompt'
-        alignment = 'left'
+    [[blocks]]
+      type = "prompt"
+      alignment = "left"
 
-        [[blocks.segments]]
-          template = '┌ 󰣇 '
-          foreground = 'p:os'
-          type = 'os'
-          style = 'plain'
+      [[blocks.segments]]
+        type = "os"
+        style = "plain"
+        template = "┌ 󰣇 "
+        foreground = "p:os"
 
-        [[blocks.segments]]
-          template = '{{ .Path }} '
-          foreground = 'p:pink'
-          type = 'path'
-          style = 'plain'
+      [[blocks.segments]]
+        type = "path"
+        style = "plain"
+        template = "{{ .Path }} "
+        foreground = "p:pink"
 
-          [blocks.segments.properties]
-            folder_icon = ''
-            home_icon = '~'
-            style = 'full'
-            compact = false
+        [blocks.segments.properties]
+          style = "full"
+          folder_icon = ""
+          home_icon = "~"
+          compact = false
 
-        [[blocks.segments]]
-          template = '{{ .HEAD }} '
-          foreground = 'p:lavender'
-          type = 'git'
-          style = 'plain'
+      [[blocks.segments]]
+        type = "git"
+        style = "plain"
+        template = "{{ .HEAD }} "
+        foreground = "p:lavender"
 
-          [blocks.segments.properties]
-            branch_icon = ' '
-            cherry_pick_icon = ' '
-            commit_icon = ' '
-            fetch_status = false
-            fetch_upstream_icon = false
-            merge_icon = ' '
-            no_commits_icon = ' '
-            rebase_icon = ' '
-            revert_icon = ' '
-            tag_icon = ' '
+        [blocks.segments.properties]
+          branch_icon = " "
+          commit_icon = " "
+          merge_icon = " "
+          rebase_icon = " "
+          revert_icon = " "
+          tag_icon = " "
+          cherry_pick_icon = " "
+          no_commits_icon = " "
+          fetch_status = false
+          fetch_upstream_icon = false
 
-      [[blocks]]
-        type = 'prompt'
-        alignment = 'left'
-        newline = true
+    [[blocks]]
+      type = "prompt"
+      alignment = "left"
+      newline = true
 
-        [[blocks.segments]]
-          template = '└ '
-          foreground = 'p:os'
-          type = 'text'
-          style = 'plain'
+      [[blocks.segments]]
+        type = "text"
+        style = "plain"
+        template = "└ "
+        foreground = "p:os"
 
-        [[blocks.segments]]
-          template = '$'
-          foreground = '#ffffff'
-          type = 'text'
-          style = 'plain'
-
-      [transient_prompt]
-        background = "transparent"
+      [[blocks.segments]]
+        type = "text"
+        style = "plain"
+        template = "$"
         foreground = "#ffffff"
-        template = " $ "
-
     '';
   };
   programs.rofi.enable = true;

@@ -2,48 +2,43 @@
   config,
   pkgs,
   lib,
-  niriEnabled,
   ...
 }: {
-  environment.systemPackages = with pkgs;
-    [
-      kitty
-      nerd-fonts.jetbrains-mono
-      font-awesome
-      vimix-cursors
-      wl-clipboard
-      pavucontrol
-      brightnessctl
-      arp-scan
-      tailscale
-      libnotify
-      dnsutils
-      clang-tools
-      lua-language-server
-      pyright
-      nodePackages.typescript-language-server
-      nodePackages.eslint
-      rubyPackages.ruby-lsp
-      emmet-language-server
-      uv
-      fish
-      kdePackages.kdenlive
-      bzmenu
-      nodejs
-      nil
-      alejandra
-      statix
-      slack
-      github-copilot-cli
-      cloudflared
-      ncdu
-      hyprshot
-      discord
-      cmatrix
-      wiremix
-      powertop
-    ]
-    ++ lib.optionals niriEnabled [
-      niri
-    ];
+  environment.systemPackages = with pkgs; [
+    kitty
+    nerd-fonts.jetbrains-mono
+    font-awesome
+    vimix-cursors
+    wl-clipboard
+    pavucontrol
+    brightnessctl
+    arp-scan
+    tailscale
+    libnotify
+    dnsutils
+    clang-tools
+    lua-language-server
+    pyright
+    nodePackages.typescript-language-server
+    nodePackages.eslint
+    rubyPackages.ruby-lsp
+    emmet-language-server
+    uv
+    fish
+    kdePackages.kdenlive
+    bzmenu
+    nodejs
+    nil
+    alejandra
+    statix
+    slack
+    github-copilot-cli
+    cloudflared
+    ncdu
+    hyprshot
+    discord
+    cmatrix
+    wiremix
+    powertop
+  ];
 }

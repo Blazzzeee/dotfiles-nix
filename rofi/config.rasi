@@ -1,5 +1,5 @@
 
-@theme "~/.config/rofi/dmenu.rasi"
+@theme "~/.config/rofi/theme.rasi"
 configuration {
     terminal: "kitty";
 }

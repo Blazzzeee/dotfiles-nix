@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  niriEnabled,
   lib,
   ...
 }: {
@@ -51,76 +52,76 @@
     enable = true;
     enableZshIntegration = true;
     configFile = pkgs.writeText "omp-config.toml" ''
-      version = 4
-      final_space = true
+    version = 4
+    final_space = true
 
-      [palette]
-        blue = '#8CAAEE'
-        lavender = '#BABBF1'
-        os = '#ACB0BE'
-        pink = '#F4B8E4'
+    [palette]
+      blue = '#8CAAEE'
+      lavender = '#BABBF1'
+      os = '#ACB0BE'
+      pink = '#F4B8E4'
 
-      [transient_prompt]
-        template = " $ "
+    [transient_prompt]
+      template = " $ "
+      foreground = "#ffffff"
+      background = "transparent"
+
+    [[blocks]]
+      type = "prompt"
+      alignment = "left"
+
+      [[blocks.segments]]
+        type = "os"
+        style = "plain"
+        template = "┌ 󰣇 "
+        foreground = "p:os"
+
+      [[blocks.segments]]
+        type = "path"
+        style = "plain"
+        template = "{{ .Path }} "
+        foreground = "p:pink"
+
+        [blocks.segments.properties]
+          style = "full"
+          folder_icon = ""
+          home_icon = "~"
+          compact = false
+
+      [[blocks.segments]]
+        type = "git"
+        style = "plain"
+        template = "{{ .HEAD }} "
+        foreground = "p:lavender"
+
+        [blocks.segments.properties]
+          branch_icon = " "
+          commit_icon = " "
+          merge_icon = " "
+          rebase_icon = " "
+          revert_icon = " "
+          tag_icon = " "
+          cherry_pick_icon = " "
+          no_commits_icon = " "
+          fetch_status = false
+          fetch_upstream_icon = false
+
+    [[blocks]]
+      type = "prompt"
+      alignment = "left"
+      newline = true
+
+      [[blocks.segments]]
+        type = "text"
+        style = "plain"
+        template = "└ "
+        foreground = "p:os"
+
+      [[blocks.segments]]
+        type = "text"
+        style = "plain"
+        template = "$"
         foreground = "#ffffff"
-        background = "transparent"
-
-      [[blocks]]
-        type = "prompt"
-        alignment = "left"
-
-        [[blocks.segments]]
-          type = "os"
-          style = "plain"
-          template = "┌ 󰣇 "
-          foreground = "p:os"
-
-        [[blocks.segments]]
-          type = "path"
-          style = "plain"
-          template = "{{ .Path }} "
-          foreground = "p:pink"
-
-          [blocks.segments.properties]
-            style = "full"
-            folder_icon = ""
-            home_icon = "~"
-            compact = false
-
-        [[blocks.segments]]
-          type = "git"
-          style = "plain"
-          template = "{{ .HEAD }} "
-          foreground = "p:lavender"
-
-          [blocks.segments.properties]
-            branch_icon = " "
-            commit_icon = " "
-            merge_icon = " "
-            rebase_icon = " "
-            revert_icon = " "
-            tag_icon = " "
-            cherry_pick_icon = " "
-            no_commits_icon = " "
-            fetch_status = false
-            fetch_upstream_icon = false
-
-      [[blocks]]
-        type = "prompt"
-        alignment = "left"
-        newline = true
-
-        [[blocks.segments]]
-          type = "text"
-          style = "plain"
-          template = "└ "
-          foreground = "p:os"
-
-        [[blocks.segments]]
-          type = "text"
-          style = "plain"
-          template = "$"
-          foreground = "#ffffff"
     '';
   };
   programs.rofi.enable = true;
@@ -402,6 +403,17 @@
 
   home.file.".config/zellij" = {
     source = ./zellij;
+    recursive = true;
+  };
+
+  home.file.".config/niri" = lib.mkIf niriEnabled {
+    source = ./niri;
+    recursive = true;
+    force = true;
+  };
+
+  home.file.".config/waybar-niri" = lib.mkIf niriEnabled {
+    source = ./waybar-niri;
     recursive = true;
   };
 

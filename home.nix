@@ -33,7 +33,9 @@
       # Make Alt+Backspace delete backward word
       bindkey '^[^?' backward-kill-word
       bindkey '^[\b' backward-kill-word
-      bindkey '^I' autosuggest-accept
+      if [ -f ~/.config/secrets/env ]; then
+        source ~/.config/secrets/env
+      fi
     '';
   };
 
@@ -42,6 +44,8 @@
   programs.zsh.syntaxHighlighting.enable = true;
   programs.zoxide.enableZshIntegration = true;
   programs.starship.enable = false;
+  programs.claude-code.enable = true;
+  nixpkgs.config.allowUnfree = true;
 
   programs.oh-my-posh = {
     enable = true;

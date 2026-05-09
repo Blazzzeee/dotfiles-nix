@@ -40,5 +40,6 @@
     cmatrix
     wiremix
     powertop
+    nautilus
   ];
 }

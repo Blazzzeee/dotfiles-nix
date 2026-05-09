@@ -44,8 +44,9 @@ return {
             lsp_format = "fallback", -- use LSP if no formatter found
         },
 
-        format_on_save = {
-            timeout_ms = 1000,
+        format_after_save = {
+            timeout_ms = 0,
+            async = true,
             lsp_fallback = true,
         },
     },

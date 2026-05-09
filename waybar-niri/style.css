@@ -1,133 +1,96 @@
 @import "color.css";
 
 * {
-  font-family: "JetBrainsMono Nerd";
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: @color5; /* Replaced @nord5 */
+  font-family: "JetBrainsMono Nerd Font:style=Regular", "JetBrainsMono Nerd Font", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: @text;
+  border: 0;
+  border-radius: 0;
+  min-height: 0;
 }
 
 window#waybar {
-  transition-property: background-color;
-  background-color: transparent; 
-  color: @color5; /* Replaced @nord5 */
+  background: @crust;
+  color: @text;
 }
 
-#pulseaudio {
-  padding: 0rem 0rem;
-  margin: 0rem 0.25rem;
-  font-size:1rem;
-  color: @color8; /* Replaced @nord8 */
+#custom-launcher {
+  padding: 8px 4px;
 }
 
-#cpu {
-  font-size:1rem;
-  /* color: @color13; */
+#workspaces {
+  padding: 0;
 }
 
-#memory {
-  font-size:1rem;
-}
-
-#pulseaudio.muted {
-  color: #a6adc8;
-}
-
-#custom-power {
-  font-size:1.2rem;
-  margin: 0.2rem 0.0rem;
-  color: @color11; /* Replaced @nord11 */
-  padding: 0 0.7rem 0 0.2rem;
-}
-
-#custom-notification {
-  color: @color7; /* Replaced @nord7 */
-  font-size: 1.2rem;
-  padding: 0px 0.2rem 0 0.6rem;
-  margin : 0rem 0 0 0.3rem;
-}
-
-tooltip {
-  background-color: @color0; /* Replaced @nord0 */
-  font-weight: 700;
-}
-
-#network {
-  font-size: 1rem;
-  padding: 0.3rem 0.2rem;
-  margin: 0.4rem 0.25rem;
-}
-
-#bluetooth {
-  font-size:1.3rem;
-  padding: 0.3rem 0rem;
-  margin: 0.3rem 0.5rem;
-}
-
-#battery {
-  font-size: 1rem;
-  padding: 0.3rem 0rem;
-  margin: 0.3rem 0.2rem;
-}
-
-#clock {
-  padding: 0.0rem 0rem 0rem 0rem;
-  margin: 0.0rem 0.5rem;
-  font-family: "monospace";
-  font-size: 1.1rem;
-  font-weight: 900;
-  transition: transform 0.5s ease-in-out;
-}
-
-#clock:hover {
-  transition: opacity 0.3s ease-in-out;
-}
-
-#power-profiles-daemon {
-  padding: 0.3rem 0.2rem;
-  margin: 0.4rem 0.25rem;
-  font-size: 1.3rem;
-}
-
-#custom-distrologo {
-  padding: 0.4rem 0.6rem;
-  margin: 0.4rem 0.25rem;
-  border-radius: 6px;
-  font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 24px;
-  color: @color8; /* Replaced @nord8 */
-}
-
-#custom-screenshot {
-  padding: 0.4rem 0rem;
-  margin: 0.4rem 0rem;
-  font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 22px;
-  color: @color5; /* Replaced @nord5 */
-}
-
-
-#workspaces button,
-#workspaces button:active,
-#workspaces button.urgent {
-    color: @color1;
+#workspaces button {
+  padding: 8px 4px;
+  margin: 0;
+  background: transparent;
+  color: @text;
 }
 
 #workspaces button.active {
-    color: @color0;
+  background: @lavender;
+  color: @crust;
+}
+
+#workspaces button.active * {
+  color: @crust;
 }
 
 #workspaces button.urgent {
-    color: @color2;
+  background: @red;
+  color: @crust;
+}
+
+#modules-left > widget,
+#modules-right > widget {
+  padding: 8px 4px;
+  margin: 4px 0;
+}
+
+#modules-right > widget {
+  margin: 4px 0;
 }
 
 #tray {
-  font-size: 2rem;
-  padding: 0.3rem 0 0 0;
+  padding: 8px 4px;
 }
 
+#bluetooth {
+  font-size: 20px;
+}
 
 #custom-sep {
-  font-size: 1.2rem;
-  /* padding: 0.1rem 0 0 0; */
+  color: @overlay0;
+  padding: 2px 0;
+  margin: 0;
+  font-size: 18px;
+}
+
+/* Instances: custom/sep#r1 -> #custom-sep-r1 (etc.) */
+#custom-sep-l1,
+#custom-sep-r1,
+#custom-sep-r2,
+#custom-sep-r3,
+#custom-sep-r4,
+#custom-sep-r5,
+#custom-sep-r6,
+#custom-sep-r7 {
+  color: @surface0;
+  padding: 2px 0;
+}
+
+#workspaces button:hover {
+  background: @surface0;
+  color: @text;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+tooltip {
+  background: @base;
+  border: 1px solid @surface2;
+  color: @text;
 }

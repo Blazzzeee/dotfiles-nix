@@ -10,6 +10,10 @@ cursor {
     xcursor-size 32
 }
 
+// Prefer server-side decorations when clients support xdg-decoration.
+// This prevents focus-ring/border colors from showing through transparent windows.
+prefer-no-csd
+
 input {
     keyboard {
         xkb {
@@ -51,22 +55,31 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        off
-    }
-
-    border {
-        width 1
+        width 2
         active-color "#c6a0f6" // Catppuccin Lavender
         inactive-color "#595959aa"
     }
+
+    // border {
+    //     width 1
+    //     active-color "#c6a0f6" // Catppuccin Lavender
+    //     inactive-color "#595959aa"
+    // }
 }
 
 spawn-at-startup "waybar" "-c" "/home/blazzee/.config/waybar-niri/config.jsonc" "-s" "/home/blazzee/.config/waybar-niri/style.css"
 spawn-at-startup "swww-daemon" "--format" "xrgb"
-spawn-at-startup "swaync"
+spawn-at-startup "dunst" "-conf" "/home/blazzee/.config/dunst/dunstrc"
+spawn-at-startup "swayosd"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 
 // Window Rules
+// For apps with transparency (e.g. kitty), don't draw the focus ring as a solid background.
+window-rule {
+    match app-id="kitty"
+    draw-border-with-background false
+}
+
 window-rule {
     match app-id="kitty" title="^yazi$"
     open-floating true
@@ -115,7 +128,8 @@ binds {
     Mod+F { toggle-window-floating; }
     Mod+X { spawn "/home/blazzee/.config/rofi/powermenu/powermenu.sh"; }
     Mod+Z { maximize-column; }
-    Mod+O { spawn "sherlock"; }
+    // Mod+O { spawn "rofi -show drun"; }
+    Mod+O { spawn "sh" "-c" "rofi -show drun"; }
     Mod+A { spawn "/home/blazzee/.config/hypr/scripts/choose-animation.sh"; } // Keeping script, might not work fully but harmless
     Mod+Q { switch-preset-column-width; }
 
@@ -124,12 +138,12 @@ binds {
     // Shift+Print { spawn "sh" "-c" "grim -g \"$(slurp)\" ~/Pictures/screenshot_area_$(date +%Y-%m-%d_%H-%M-%S).png && notify-send 'Screenshot Captured' 'Area screenshot saved to ~/Pictures'"; }
 
     // Audio / Brightness
-    XF86AudioRaiseVolume { spawn "/home/blazzee/.config/scripts/volume.sh" "inc"; }
-    XF86AudioLowerVolume { spawn "/home/blazzee/.config/scripts/volume.sh" "dec"; }
-    XF86AudioMute { spawn "/home/blazzee/.config/scripts/volume.sh" "toggle"; }
-    XF86AudioMicMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-    XF86MonBrightnessUp { spawn "/home/blazzee/.config/scripts/brightness.sh" "inc"; }
-    XF86MonBrightnessDown { spawn "/home/blazzee/.config/scripts/brightness.sh" "dec"; }
+    XF86AudioRaiseVolume { spawn "swayosd" "--output-volume" "raise"; }
+    XF86AudioLowerVolume { spawn "swayosd" "--output-volume" "lower"; }
+    XF86AudioMute { spawn "swayosd" "--output-volume" "mute-toggle"; }
+    XF86AudioMicMute { spawn "swayosd" "--input-volume" "mute-toggle"; }
+    XF86MonBrightnessUp { spawn "swayosd" "--brightness" "raise"; }
+    XF86MonBrightnessDown { spawn "swayosd" "--brightness" "lower"; }
     XF86AudioNext { spawn "playerctl" "next"; }
     XF86AudioPause { spawn "playerctl" "play-pause"; }
     XF86AudioPlay { spawn "playerctl" "play-pause"; }

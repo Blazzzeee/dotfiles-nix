@@ -1,71 +1,105 @@
 {
-  "layer": "bottom",
-  "position": "top",
+  // waybar-niri: dwm-like, Catppuccin themed bar
+  "layer": "top",
+  "position": "left",
+  "width": 42,
   "exclusive": true,
   "gtk-layer-shell": true,
   "passthrough": false,
-  "fixed-center": true,
+  "fixed-center": false,
+  "spacing": 0,
   "modules-left": [
-    "custom/distrologo",
-    "niri/workspaces",
+    "custom/launcher",
+    "custom/sep#l1",
+    "niri/workspaces"
   ],
-  "modules-center": [
-    "clock",
-  ],
+  "modules-center": [],
   "modules-right": [
-    "memory",
-    "cpu",
-    "tray",
-    "custom/sep",
-    "pulseaudio",
     "network",
+    "custom/sep#r1",
     "bluetooth",
-    "custom/sep",
-    "power-profiles-daemon",
-    // "custom/screenshot",
+    "custom/sep#r2",
+    "pulseaudio",
+    "custom/sep#r3",
+    "cpu",
+    "custom/sep#r4",
+    "memory",
+    "custom/sep#r5",
     "battery",
-    "custom/notification",
+    // "tray",
+    "custom/sep#r6",
+    "clock",
+    "custom/sep#r7",
     "custom/power",
   ],
+
+  "custom/launcher": {
+    "format": " ",
+    "rotate": 90,
+    "tooltip": false,
+    "on-click": "rofi -show drun"
+  },
+
+  "custom/sep": {
+    "format": "─",
+    "tooltip": false
+  },
+  "custom/sep#l1": { "format": "─", "tooltip": false },
+  "custom/sep#r1": { "format": "─", "tooltip": false },
+  "custom/sep#r2": { "format": "─", "tooltip": false },
+  "custom/sep#r3": { "format": "─", "tooltip": false },
+  "custom/sep#r4": { "format": "─", "tooltip": false },
+  "custom/sep#r5": { "format": "─", "tooltip": false },
+  "custom/sep#r6": { "format": "─", "tooltip": false },
+  "custom/sep#r7": { "format": "─", "tooltip": false },
+
   "niri/workspaces": {
     "all-outputs": true,
     "format": "{icon}",
     "on-click": "activate",
+    "disable-scroll": false,
     "format-icons": {
       "active": "󰮯 ",
+      "focused": "󰮯 ",
       "default": "󰊠 "
     }
   },
+
   "cpu": {
-    "format": " 󰍛 {usage}% ",
+    "format": " {usage}%",
+    "rotate": 90,
     "tooltip": true,
     "tooltip-format": "CPU Usage: {usage}%",
     "interval": 2
   },
+
   "memory": {
-    "format": "󰘚  {percentage}%",
+    "format": " {used}/{total}",
+    "rotate": 90,
     "tooltip": true,
     "tooltip-format": "RAM Used: {used}GB / {total}GB",
     "interval": 2
   },
-  "custom/distrologo": {
-    "format": "󰣇 ",
-    "tooltip": true,
-    "tooltip-format": "I use Arch BTW",
-    "on-click": "rofi -show drun"
-  },
-  "custom/screenshot": {
-    "format": " ",
-    "tooltip": true,
-    "tooltip-format": "Screenshot",
-    "on-click": "~/.config/rofi/applets/screenshot.sh"
-  },
   "tray": {
     "show-passive-items": true,
-    "spacing": 10
+    "spacing": 10,
+    "icon-size": 22,
+    "ignored-items": [
+      "blueman-applet",
+      "blueman",
+      "blueman-tray",
+      "blueberry-tray",
+      "bluetooth",
+      "org.blueman.Applet",
+      "org.blueman.Manager"
+    ]
   },
   "battery": {
-    "format": "<span font='font awesome 5 free 11'>{icon}</span> {capacity}%",
+    "format": " {capacity}% dis",
+    "rotate": 90,
+    "format-charging": " charging",
+    "format-plugged": " charging",
+    "format-alt": " {capacity}%",
     "format-icons": [
       " ",
       " ",
@@ -73,18 +107,18 @@
       " ",
       " "
     ],
-    "format-charging": "<span font='font awesome 5 free'></span>  <span font='font awesome 5 free 11'>{icon}</span>  {capacity}%",
-    "format-full": "<span font='font awesome 5 free'></span>  <span font='font awesome 5 free 11'>{icon}</span>  charged",
+    "format-full": " charged",
     "interval": 30,
     "states": {
       "warning": 15,
       "critical": 10
     },
-    "tooltip": false,
+    "tooltip": false
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "format-muted": "  muted",
+    "rotate": 90,
+    "format-muted": " muted",
     "format-icons": {
       "headphone": " ",
       "default": [
@@ -95,27 +129,26 @@
     },
     "on-click": "pavucontrol"
   },
-  "custom/sep": {
-    "format": " | ",
-    "tooltip": false
-  },
   "bluetooth": {
     "format-on": "󰂯",
     "format-off": "󰂲",
     "format-disabled": "󰂲",
     "format-connected": "󰂱 {num_connections}",
+    "rotate": 90,
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "on-click": "~/.config/scripts/bluetooth.sh"
+    "on-click": "/run/current-system/sw/bin/bzmenu --launcher rofi"
   },
   "custom/power": {
     "tooltip": false,
     "on-click": "~/.config/rofi/powermenu/powermenu.sh",
-    "format": "⏻"
+    "rotate": 90,
+    "format": "⏻ "
   },
   "network": {
-    "format-wifi": "{icon}   {essid}",
-    "tooltip-format": "{icon} {essid}",
+    "format-wifi": "{icon} {essid}",
+    "rotate": 90,
+    "tooltip-format": "{icon} {essid}\n{ipaddr}",
     "format-icons": [
       "󰤯",
       "󰤟",
@@ -126,30 +159,22 @@
     "format-ethernet": "{ifname} ",
     "format-disconnected": " ",
     "max-length": 50,
-    "on-click": "network_manager"
+    "on-click": "/run/current-system/sw/bin/network_manager_ui"
   },
   "custom/notification": {
     "tooltip": false,
     "format": "{icon}",
-    "format-icons": {
-      "notification": " <span foreground='red'><sup></sup></span>",
-      "none": " ",
-      "dnd-notification": " <span foreground='red'><sup></sup></span>",
-      "dnd-none": " ",
-      "inhibited-notification": " <span foreground='red'><sup></sup></span>",
-      "inhibited-none": " ",
-      "dnd-inhibited-notification": " <span foreground='red'><sup></sup></span>",
-      "dnd-inhibited-none": " "
-    },
     "return-type": "json",
-    "exec-if": "which swaync-client",
-    "exec": "swaync-client -swb",
-    "on-click": "swaync-client -t -sw",
-    "on-click-right": "swaync-client -d -sw",
-    "escape": true
+    "exec-if": "which dunstctl",
+    "exec": "~/.config/scripts/waybar-dunst.sh",
+    "on-click": "dunstctl set-paused toggle",
+    "on-click-right": "dunstctl close-all",
+    "escape": true,
+    "interval": 1
   },
   "clock": {
-    "format": "[ {:%H:%M} ]",
+    "format": "{:%b %d %I:%M %p}",
+    "rotate": 90,
     "interval": 60,
     "format-alt": "{:%b %d %Y}",
     "tooltip": true,
@@ -169,19 +194,20 @@
       "on-click-right": "mode",
       "on-scroll-up": "shift_up",
       "on-scroll-down": "shift_down"
-    },
+    }
   },
   "power-profiles-daemon": {
-    "format": "{icon} ",
+    "format": "{icon}",
     "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
     "tooltip": true,
     "format-icons": {
-      "default": "<span color='#f6c177'></span>",
-      "performance": "<span color='#f6c177'></span>",
-      "balanced": "<span color='#eb6f92'></span>",
-      "power-saver": "<span color='#9ccfd8'></span>"
+      "default": " {profile}",
+      "performance": " performance",
+      "balanced": " balanced",
+      "power-saver": " power-saver"
     }
   },
+
   "mpris": {
     "format": "[ {status_icon} {title:10} ]",
     "status-icons": {
@@ -196,6 +222,6 @@
     "on-click-middle": "playerctl previous",
     "on-scroll-up": "playerctl position 5+",
     "on-scroll-down": "playerctl position 5-",
-    "tooltip": false,
-  },
+    "tooltip": false
+  }
 }

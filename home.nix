@@ -7,6 +7,7 @@
 }: {
   imports = [
     ./hyprland.nix
+    ./niri.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -19,7 +20,8 @@
   programs.eza.enable = true;
   programs.eza.icons = "always";
   services.swww.enable = true;
-  services.swaync.enable = true;
+  services.swaync.enable = false;
+  services.dunst.enable = false;
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -52,76 +54,76 @@
     enable = true;
     enableZshIntegration = true;
     configFile = pkgs.writeText "omp-config.toml" ''
-    version = 4
-    final_space = true
+      version = 4
+      final_space = true
 
-    [palette]
-      blue = '#8CAAEE'
-      lavender = '#BABBF1'
-      os = '#ACB0BE'
-      pink = '#F4B8E4'
+      [palette]
+        blue = '#8CAAEE'
+        lavender = '#BABBF1'
+        os = '#ACB0BE'
+        pink = '#F4B8E4'
 
-    [transient_prompt]
-      template = " $ "
-      foreground = "#ffffff"
-      background = "transparent"
-
-    [[blocks]]
-      type = "prompt"
-      alignment = "left"
-
-      [[blocks.segments]]
-        type = "os"
-        style = "plain"
-        template = "┌ 󰣇 "
-        foreground = "p:os"
-
-      [[blocks.segments]]
-        type = "path"
-        style = "plain"
-        template = "{{ .Path }} "
-        foreground = "p:pink"
-
-        [blocks.segments.properties]
-          style = "full"
-          folder_icon = ""
-          home_icon = "~"
-          compact = false
-
-      [[blocks.segments]]
-        type = "git"
-        style = "plain"
-        template = "{{ .HEAD }} "
-        foreground = "p:lavender"
-
-        [blocks.segments.properties]
-          branch_icon = " "
-          commit_icon = " "
-          merge_icon = " "
-          rebase_icon = " "
-          revert_icon = " "
-          tag_icon = " "
-          cherry_pick_icon = " "
-          no_commits_icon = " "
-          fetch_status = false
-          fetch_upstream_icon = false
-
-    [[blocks]]
-      type = "prompt"
-      alignment = "left"
-      newline = true
-
-      [[blocks.segments]]
-        type = "text"
-        style = "plain"
-        template = "└ "
-        foreground = "p:os"
-
-      [[blocks.segments]]
-        type = "text"
-        style = "plain"
-        template = "$"
+      [transient_prompt]
+        template = " $ "
         foreground = "#ffffff"
+        background = "transparent"
+
+      [[blocks]]
+        type = "prompt"
+        alignment = "left"
+
+        [[blocks.segments]]
+          type = "os"
+          style = "plain"
+          template = "┌ 󰣇 "
+          foreground = "p:os"
+
+        [[blocks.segments]]
+          type = "path"
+          style = "plain"
+          template = "{{ .Path }} "
+          foreground = "p:pink"
+
+          [blocks.segments.properties]
+            style = "full"
+            folder_icon = ""
+            home_icon = "~"
+            compact = false
+
+        [[blocks.segments]]
+          type = "git"
+          style = "plain"
+          template = "{{ .HEAD }} "
+          foreground = "p:lavender"
+
+          [blocks.segments.properties]
+            branch_icon = " "
+            commit_icon = " "
+            merge_icon = " "
+            rebase_icon = " "
+            revert_icon = " "
+            tag_icon = " "
+            cherry_pick_icon = " "
+            no_commits_icon = " "
+            fetch_status = false
+            fetch_upstream_icon = false
+
+      [[blocks]]
+        type = "prompt"
+        alignment = "left"
+        newline = true
+
+        [[blocks.segments]]
+          type = "text"
+          style = "plain"
+          template = "└ "
+          foreground = "p:os"
+
+        [[blocks.segments]]
+          type = "text"
+          style = "plain"
+          template = "$"
+          foreground = "#ffffff"
     '';
   };
   programs.rofi.enable = true;
@@ -156,6 +158,7 @@
     nwg-look
     gemini-cli
     btop
+    dunst
   ];
 
   programs.qutebrowser.settings = {
@@ -184,6 +187,7 @@
 
   # Proper GTK4 theming on Wayland (required!)
   xdg.configFile = {
+    "dunst/dunstrc".source = ./dunst/dunstrc;
     "gtk-4.0/assets" = {
       source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
       force = true;
@@ -391,10 +395,7 @@
     executable = true;
   };
 
-  home.file.".config/swaync" = {
-    source = ./swaync;
-    recursive = true;
-  };
+  # swaync kept in repo but not enabled (using dunst instead)
 
   home.file.".config/rofi" = {
     source = ./rofi;

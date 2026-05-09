@@ -1,0 +1,72 @@
+[global]
+monitor = 0
+follow = mouse
+enable_posix_regex = true
+width = 400
+height = (60, 250)
+notification_limit = 0
+origin = top-right
+offset = (12, 12)
+scale = 0
+timeout = 3000
+icon_corners = all
+indicate_hidden = true
+transparency = 0
+shrink = false
+separator_height = 1
+separator_color = auto
+padding = 8
+horizontal_padding = 12
+text_icon_padding = 0
+frame_width = 1
+gap_size = 0
+sort = false
+idle_threshold = 0
+layer = overlay
+force_xwayland = false
+font = Roboto Regular 13
+line_height = 0
+markup = full
+format = "<b>%s</b>\n%b\n<sub>%a</sub>"
+alignment = left
+vertical_alignment = center
+show_age_threshold = 60
+word_wrap = true
+ignore_newline = false
+stack_duplicates = true
+hide_duplicate_count = false
+show_indicators = true
+icon_position = left
+enable_recursive_icon_lookup = true
+icon_theme = Tela-green-dark
+max_icon_size = 64
+sticky_history = true
+history_length = 2000
+dmenu = /usr/bin/rofi -dmenu
+browser = /usb/bin/xdg-open
+always_run_script = true
+title = Dunst
+class = Dunst
+force_xinerama = false
+corner_radius = 8
+corners = all
+mouse_left_click = do_action
+mouse_right_click = context
+mouse_middle_click = close_current
+ignore_dbusclose = false
+override_pause_level = 0
+
+[urgency_low]
+timeout = 2
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[urgency_normal]
+timeout = 5
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[urgency_critical]
+timeout = 10
+background = "#1e1e2e"
+foreground = "#f38ba8"

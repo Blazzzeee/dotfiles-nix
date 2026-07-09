@@ -28,7 +28,7 @@ window {
     location: north;
     height: 5.5%;
     width: 100%;
-    y-offset: 0%;
+    y-offset: -4.5%;
     background-color: @bg;
     children: [ horibox ];
 }

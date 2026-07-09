@@ -1,0 +1,24 @@
+theme = "vague"
+
+[editor]
+line-number = "relative"
+end-of-line-diagnostics = "hint"
+[editor.inline-diagnostics]
+cursor-line = "warning" # show warnings and errors on the cursorline inline
+
+[keys.normal]
+y = ":clipboard-yank"
+p = ["delete_selection", ":clipboard-paste-before"]
+- = [
+  ':sh rm -f /tmp/unique-file',
+  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+  ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/unique-file}',
+  ':redraw',
+]
+
+[editor.indent-guides]
+render = true
+character = "|"
+skip-levels = 2
+render-blank-lines = true

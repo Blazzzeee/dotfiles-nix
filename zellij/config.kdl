@@ -107,7 +107,6 @@ keybinds clear-defaults=true {
         bind "Alt l" { MoveFocusOrTab "right"; }
         bind "Alt n" { NewPane; }
         bind "Alt o" { MoveTab "right"; }
-        bind "Ctrl q" { Quit; }
     }
     shared_except "locked" "tab" {
         bind "Alt t" { SwitchToMode "tab"; }

@@ -35,7 +35,7 @@ return {
             ruby = { "rubocop" }, -- OR you can use ruby-lsp, choose one
 
             -- ERB
-            erb = { "erb_format" },
+            eruby = { "erb_format" },
 
             nix = { "alejandra" },
         },

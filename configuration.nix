@@ -124,14 +124,11 @@ in {
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "blazzee";
-    extraGroups = ["networkmanager" "wheel" "video" "bluetooth"];
+    extraGroups = ["networkmanager" "wheel" "video" "bluetooth" "docker"];
     packages = with pkgs; [
       #  thunderbird
     ];
   };
-
-  # Install firefox.
-  programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

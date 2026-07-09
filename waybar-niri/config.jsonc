@@ -1,8 +1,8 @@
 {
   // waybar-niri: dwm-like, Catppuccin themed bar
   "layer": "top",
-  "position": "left",
-  "width": 42,
+  "position": "top",
+  "height": 42,
   "exclusive": true,
   "gtk-layer-shell": true,
   "passthrough": false,
@@ -35,23 +35,22 @@
 
   "custom/launcher": {
     "format": " ",
-    "rotate": 90,
     "tooltip": false,
     "on-click": "rofi -show drun"
   },
 
   "custom/sep": {
-    "format": "─",
+    "format": " | ",
     "tooltip": false
   },
-  "custom/sep#l1": { "format": "─", "tooltip": false },
-  "custom/sep#r1": { "format": "─", "tooltip": false },
-  "custom/sep#r2": { "format": "─", "tooltip": false },
-  "custom/sep#r3": { "format": "─", "tooltip": false },
-  "custom/sep#r4": { "format": "─", "tooltip": false },
-  "custom/sep#r5": { "format": "─", "tooltip": false },
-  "custom/sep#r6": { "format": "─", "tooltip": false },
-  "custom/sep#r7": { "format": "─", "tooltip": false },
+  "custom/sep#l1": { "format": " | ", "tooltip": false },
+  "custom/sep#r1": { "format": " | ", "tooltip": false },
+  "custom/sep#r2": { "format": " | ", "tooltip": false },
+  "custom/sep#r3": { "format": " | ", "tooltip": false },
+  "custom/sep#r4": { "format": " | ", "tooltip": false },
+  "custom/sep#r5": { "format": " | ", "tooltip": false },
+  "custom/sep#r6": { "format": " | ", "tooltip": false },
+  "custom/sep#r7": { "format": " | ", "tooltip": false },
 
   "niri/workspaces": {
     "all-outputs": true,
@@ -67,7 +66,6 @@
 
   "cpu": {
     "format": " {usage}%",
-    "rotate": 90,
     "tooltip": true,
     "tooltip-format": "CPU Usage: {usage}%",
     "interval": 2
@@ -75,7 +73,6 @@
 
   "memory": {
     "format": " {used}/{total}",
-    "rotate": 90,
     "tooltip": true,
     "tooltip-format": "RAM Used: {used}GB / {total}GB",
     "interval": 2
@@ -96,7 +93,6 @@
   },
   "battery": {
     "format": " {capacity}% dis",
-    "rotate": 90,
     "format-charging": " charging",
     "format-plugged": " charging",
     "format-alt": " {capacity}%",
@@ -117,7 +113,6 @@
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "rotate": 90,
     "format-muted": " muted",
     "format-icons": {
       "headphone": " ",
@@ -134,7 +129,6 @@
     "format-off": "󰂲",
     "format-disabled": "󰂲",
     "format-connected": "󰂱 {num_connections}",
-    "rotate": 90,
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     "on-click": "/run/current-system/sw/bin/bzmenu --launcher rofi"
@@ -142,12 +136,10 @@
   "custom/power": {
     "tooltip": false,
     "on-click": "~/.config/rofi/powermenu/powermenu.sh",
-    "rotate": 90,
     "format": "⏻ "
   },
   "network": {
     "format-wifi": "{icon} {essid}",
-    "rotate": 90,
     "tooltip-format": "{icon} {essid}\n{ipaddr}",
     "format-icons": [
       "󰤯",
@@ -174,7 +166,6 @@
   },
   "clock": {
     "format": "{:%b %d %I:%M %p}",
-    "rotate": 90,
     "interval": 60,
     "format-alt": "{:%b %d %Y}",
     "tooltip": true,

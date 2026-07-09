@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -35,6 +36,7 @@
 
   outputs = {
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     antigravity-nix,
     network_manager_ui,
@@ -45,6 +47,7 @@
   }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {inherit system;};
+    pkgs-unstable = import nixpkgs-unstable {inherit system;};
     niriEnabled = true;
   in {
     # --- NixOS system ---
@@ -52,7 +55,7 @@
       inherit system;
 
       specialArgs = {
-        inherit niriEnabled;
+        inherit niriEnabled pkgs-unstable;
       };
 
       modules = [
@@ -60,7 +63,7 @@
         ./pkgs.nix
         {
           environment.systemPackages = [
-            antigravity-nix.packages.x86_64-linux.default
+            antigravity-nix.packages.${system}.google-antigravity-cli
             network_manager_ui.packages.${system}.network_manager_ui
             hellpaper.packages.${system}.default
             hyprland-osd.packages.${system}.default
@@ -79,7 +82,7 @@
       ];
 
       extraSpecialArgs = {
-        inherit niriEnabled;
+        inherit niriEnabled pkgs-unstable;
       };
     };
   };

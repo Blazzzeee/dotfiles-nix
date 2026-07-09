@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   niriEnabled,
   ...
@@ -23,7 +24,6 @@
       pyright
       nodePackages.typescript-language-server
       nodePackages.eslint
-      rubyPackages.ruby-lsp
       emmet-language-server
       uv
       fish
@@ -43,6 +43,10 @@
       wiremix
       powertop
       nautilus
+      tree-sitter
+      gcc
+      gnumake
+      pkgs-unstable.neovim
     ]
     ++ lib.optionals niriEnabled [
       niri

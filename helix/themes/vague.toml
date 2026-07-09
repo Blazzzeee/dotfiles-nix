@@ -1,0 +1,172 @@
+# Vague colorscheme - ported from vague.nvim
+
+# Syntax highlighting
+"comment" = { fg = "muted", modifiers = ["italic"] }
+"variable" = "fg"
+"variable.builtin" = "teal"
+"variable.parameter" = { fg = "lilac", modifiers = ["italic"] }
+"variable.other.member" = "cloud"
+"constant" = "lavender"
+"constant.builtin" = "lavender"
+"constant.character" = "lavender"
+"constant.character.escape" = "steel"
+"constant.numeric" = "gold"
+"string" = "peach"
+"string.regexp" = "sky"
+"string.special" = "peach"
+"string.special.url" = { fg = "sky", modifiers = ["underlined"] }
+"string.special.symbol" = "lavender"
+"function" = "rose"
+"function.builtin" = "teal"
+"function.method" = "rose"
+"function.macro" = "teal"
+"constructor" = "slate"
+"keyword" = "steel"
+"keyword.control" = "steel"
+"keyword.control.conditional" = "steel"
+"keyword.control.repeat" = "steel"
+"keyword.control.return" = "steel"
+"keyword.control.exception" = "coral"
+"keyword.control.import" = { fg = "steel", modifiers = ["italic"] }
+"keyword.operator" = "mist"
+"keyword.function" = "steel"
+"keyword.storage" = "steel"
+"keyword.storage.type" = "steel"
+"keyword.storage.modifier" = "steel"
+"operator" = "mist"
+"type" = "slate"
+"type.builtin" = "slate"
+"type.enum.variant" = "lavender"
+"label" = "lilac"
+"namespace" = { fg = "slate", modifiers = ["italic"] }
+"module" = { fg = "slate", modifiers = ["italic"] }
+"punctuation" = "dim"
+"punctuation.delimiter" = "dim"
+"punctuation.bracket" = "fg"
+"punctuation.special" = "mist"
+"special" = "teal"
+"tag" = "steel"
+"attribute" = "lilac"
+"markup.heading" = { fg = "steel", modifiers = ["bold"] }
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.link.url" = { fg = "sky", modifiers = ["underlined"] }
+"markup.link.text" = "peach"
+"markup.list" = "mist"
+"markup.quote" = { fg = "muted", modifiers = ["italic"] }
+"markup.raw" = "peach"
+"diff.plus" = "sage"
+"diff.minus" = "coral"
+"diff.delta" = "amber"
+
+# UI elements
+"ui.background" = { fg = "fg", bg = "bg" }
+"ui.text" = "fg"
+"ui.text.focus" = { fg = "bright" }
+"ui.text.inactive" = { fg = "muted" }
+"ui.text.info" = { fg = "sky" }
+
+"ui.window" = { fg = "surface2" }
+"ui.separator" = { fg = "surface2" }
+
+"ui.cursor" = { fg = "bg", bg = "cursor" }
+"ui.cursor.primary" = { fg = "bg", bg = "cursor" }
+"ui.cursor.insert" = { fg = "bg", bg = "sage" }
+"ui.cursor.select" = { fg = "bg", bg = "lilac" }
+"ui.cursor.match" = { bg = "curmatch" }
+"ui.cursorline.primary" = { bg = "surface2" }
+
+"ui.selection" = { bg = "selection" }
+"ui.selection.primary" = { bg = "selection" }
+
+"ui.linenr" = { fg = "dim" }
+"ui.linenr.selected" = { fg = "fg" }
+
+"ui.statusline" = { fg = "fg", bg = "surface1" }
+"ui.statusline.inactive" = { fg = "muted", bg = "bg" }
+"ui.statusline.normal" = { fg = "bg", bg = "steel", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "bg", bg = "sage", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "bg", bg = "lilac", modifiers = ["bold"] }
+"ui.statusline.separator" = { fg = "surface2" }
+
+"ui.bufferline" = { fg = "muted", bg = "surface1" }
+"ui.bufferline.active" = { fg = "bright", bg = "bg" }
+"ui.bufferline.background" = { bg = "surface1" }
+
+# Popups, menus, completion
+"ui.popup" = { fg = "fg", bg = "surface0" }
+"ui.popup.info" = { fg = "fg", bg = "surface0" }
+"ui.menu" = { fg = "fg", bg = "surface0" }
+"ui.menu.selected" = { fg = "bright", bg = "surface3" }
+"ui.menu.scroll" = { fg = "dim", bg = "surface0" }
+
+# Picker / fuzzy finder
+"ui.picker" = { fg = "fg", bg = "surface0" }
+"ui.picker.header" = { fg = "steel", modifiers = ["bold"] }
+"ui.picker.header.active" = { fg = "bright", modifiers = ["bold"] }
+
+"ui.help" = { fg = "fg", bg = "surface0" }
+"ui.gutter" = { bg = "bg" }
+"ui.gutter.selected" = { bg = "surface2" }
+
+"ui.highlight" = { bg = "selection" }
+"ui.highlight.frameline" = { bg = "selection" }
+
+# Virtual / inlay hints
+"ui.virtual" = "dim"
+"ui.virtual.ruler" = { bg = "surface2" }
+"ui.virtual.indent-guide" = "surface2"
+"ui.virtual.inlay-hint" = { fg = "muted", bg = "surface1" }
+"ui.virtual.inlay-hint.parameter" = { fg = "muted", modifiers = ["italic"] }
+"ui.virtual.inlay-hint.type" = { fg = "muted" }
+"ui.virtual.wrap" = "dim"
+"ui.virtual.whitespace" = "surface2"
+"ui.virtual.jump-label" = { fg = "coral", modifiers = ["bold"] }
+
+# Diagnostics
+"diagnostic.error" = { underline = { color = "coral", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "amber", style = "curl" } }
+"diagnostic.info" = { underline = { color = "sky", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "dim", style = "dotted" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+"error" = "coral"
+"warning" = "amber"
+"info" = "sky"
+"hint" = "dim"
+
+# Search
+"ui.search" = { bg = "found" }
+"ui.search.match" = { fg = "bright", bg = "found", modifiers = ["bold"] }
+
+# Palette - must be at the end
+[palette]
+bg = "#141415"
+surface0 = "#1a1a1f"
+surface1 = "#1c1c24"
+surface2 = "#252530"
+surface3 = "#2a2a35"
+selection = "#333738"
+dim = "#4a4a5e"
+muted = "#606079"
+border = "#878787"
+fg = "#cdcdcd"
+bright = "#e0e0e0"
+rose = "#c48282"
+peach = "#e8b589"
+gold = "#e0a363"
+amber = "#f3be7c"
+sage = "#7fa563"
+teal = "#b4d4cf"
+slate = "#9bb4bc"
+steel = "#6e94b2"
+mist = "#90a0b5"
+lilac = "#bb9dbd"
+lavender = "#aeaed1"
+cloud = "#c3c3d5"
+coral = "#d8647e"
+sky = "#7e98e8"
+found = "#405065"
+cursor = "#8e8eaa"
+curmatch = "#505070"

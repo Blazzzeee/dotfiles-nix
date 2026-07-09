@@ -1,0 +1,124 @@
+[language-server.scls]
+command = "simple-completion-language-server"
+
+[language-server.scls.config]
+feature_words = true
+feature_snippets = true
+snippets_first = true
+snippets_inline_by_word_tail = false
+feature_unicode_input = false
+feature_paths = false
+feature_citations = false
+
+[language-server.scls.environment]
+RUST_LOG = "info,simple-completion-language-server=info"
+LOG_FILE = "/tmp/completion.log"
+
+[[language]]
+name = "c"
+auto-format = true
+formatter = { command="clang-format", args= ["--assume-filename=.c"]}
+language-id = "c"
+language-servers = ["clangd"]
+
+
+[[language]]
+name = "cpp"
+auto-format = true
+formatter = { command="clang-format", args= ["--assume-filename=.cpp"]}
+language-id = "cpp"
+language-servers = ["clangd"]
+
+
+[[language]]
+name = "python"
+auto-format = false
+language-id = "python"
+language-servers = ["ruff-lsp", "pyright", "scls"]
+file-types = ["py", "pyi", "pyx"]
+
+# TypeScript
+[[language]]
+name = "typescript"
+file-types = ["ts"]
+roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+language-servers = ["ts_ls"]
+auto-format = true
+
+# TypeScript React
+[[language]]
+name = "tsx"
+file-types = ["tsx"]
+roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+language-servers = ["ts_ls", "emmet_ls"]
+auto-format = true
+
+# JavaScript
+[[language]]
+name = "javascript"
+file-types = ["js"]
+roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+language-servers = ["ts_ls"]
+auto-format = true
+
+# JavaScript React
+[[language]]
+name = "jsx"
+file-types = ["jsx"]
+roots = ["package.json", "tsconfig.json", "jsconfig.json"]
+language-servers = ["ts_ls", "emmet_ls"]
+auto-format = true
+
+# Emmet LSP
+[language-server.emmet_ls]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+# TypeScript LSP
+[language-server.ts_ls]
+command = "typescript-language-server"
+args = ["--stdio"]
+
+
+[language-server.ruff-lsp]
+command = "ruff server"
+
+[language-server.ruby-lsp]
+command = "bundle"
+args = ["exec", "ruby-lsp"]
+
+[language-server.ruby-lsp.config]
+ruby-lsp = { initializationOptions = { enabledFeatures = { completion = true, completionResolve = true, hover = true, signatureHelp = true, definition = true, diagnostics = true, formatting = true, codeActions = true }, formatter = "rubocop", linters = ["rubocop"] } }
+
+[language-server.rubocop]
+command = "rubocop"
+args = ["--lsp"]
+
+[language-server.erb-formatter]
+command = "erb-formatter"
+args = ["--stdin"]
+
+[[language]]
+name = "ruby"
+auto-format = true
+language-servers = ["ruby-lsp", "rubocop"]
+file-types = ["rb", "rake", "gemspec", { glob = "Gemfile" }, { glob = "Rakefile" }, { glob = "Guardfile" }]
+roots = ["Gemfile", "Gemfile.lock", ".ruby-version"]
+
+[[language]]
+name = "erb"
+auto-format = true
+file-types = ["erb", "html.erb"]
+language-servers = ["ruby-lsp"]
+formatter = { command = "erb-formatter", args = ["--stdin"] }
+
+# Nix language
+[[language]]
+name = "nix"
+file-types = ["nix"]
+auto-format = true
+formatter = { command = "alejandra" }
+language-servers = ["nil"]
+
+[language-server.nil]
+command = "nil"

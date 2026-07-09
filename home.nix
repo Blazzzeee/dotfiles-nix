@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   niriEnabled,
   lib,
   ...
@@ -42,7 +43,6 @@
     '';
   };
 
-  programs.neovim.enable = true;
   programs.zsh.autosuggestion.enable = true;
   programs.zsh.syntaxHighlighting.enable = true;
   programs.zoxide.enableZshIntegration = true;
@@ -135,7 +135,6 @@
     enable = true;
     nix-direnv.enable = true;
   };
-  programs.codex.enable = true;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -150,7 +149,6 @@
   # environment.
   home.packages = with pkgs; [
     tofi
-    qutebrowser
     fd
     lazygit
     brave
@@ -222,156 +220,6 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/helix/config.toml" = {
-      text = ''
-        theme = "catppuccin_mocha"
-
-        [editor]
-        line-number = "relative"
-        end-of-line-diagnostics = "hint"
-        [editor.inline-diagnostics]
-        cursor-line = "warning" # show warnings and errors on the cursorline inline
-
-        [keys.normal]
-        esc = ["collapse_selection", "keep_primary_selection"]
-        y = ":clipboard-yank"
-        p = ["delete_selection", ":clipboard-paste-before"]
-        - = [
-          ':sh rm -f /tmp/unique-file',
-          ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
-          ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
-          ':open %sh{cat /tmp/unique-file}',
-          ':redraw',
-        ]
-
-        [editor.indent-guides]
-        render = true
-        character = "|"
-        skip-levels = 1
-        render-blank-lines = true
-      '';
-    };
-    ".config/helix/languages.toml" = {
-      text = ''
-        [language-server.scls]
-        command = "simple-completion-language-server"
-
-        [language-server.scls.config]
-        feature_words = true
-        feature_snippets = true
-        snippets_first = true
-        snippets_inline_by_word_tail = false
-        feature_unicode_input = false
-        feature_paths = false
-        feature_citations = false
-
-        [language-server.scls.environment]
-        RUST_LOG = "info,simple-completion-language-server=info"
-        LOG_FILE = "/tmp/completion.log"
-
-        [[language]]
-        name = "c"
-        auto-format = true
-        formatter = { command="clang-format", args= ["--assume-filename=.c"]}
-        language-id = "c"
-        language-servers = ["clangd"]
-
-
-        [[language]]
-        name = "cpp"
-        auto-format = true
-        formatter = { command="clang-format", args= ["--assume-filename=.cpp"]}
-        language-id = "cpp"
-        language-servers = ["clangd"]
-
-
-        [[language]]
-        name = "python"
-        auto-format = false
-        language-id = "python"
-        language-servers = ["ruff-lsp", "pyright", "scls"]
-        file-types = ["py", "pyi", "pyx"]
-
-        # TypeScript
-        [[language]]
-        name = "typescript"
-        file-types = ["ts"]
-        roots = ["package.json", "tsconfig.json", "jsconfig.json"]
-        language-servers = ["ts_ls"]
-        auto-format = true
-
-        # TypeScript React
-        [[language]]
-        name = "tsx"
-        file-types = ["tsx"]
-        roots = ["package.json", "tsconfig.json", "jsconfig.json"]
-        language-servers = ["ts_ls", "emmet_ls"]
-        auto-format = true
-
-        # JavaScript
-        [[language]]
-        name = "javascript"
-        file-types = ["js"]
-        roots = ["package.json", "tsconfig.json", "jsconfig.json"]
-        language-servers = ["ts_ls"]
-        auto-format = true
-
-        # JavaScript React
-        [[language]]
-        name = "jsx"
-        file-types = ["jsx"]
-        roots = ["package.json", "tsconfig.json", "jsconfig.json"]
-        language-servers = ["ts_ls", "emmet_ls"]
-        auto-format = true
-
-        # Emmet LSP
-        [language-server.emmet_ls]
-        command = "emmet-language-server"
-        args = ["--stdio"]
-
-        # TypeScript LSP
-        [language-server.ts_ls]
-        command = "typescript-language-server"
-        args = ["--stdio"]
-
-
-        [language-server.ruff-lsp]
-        command = "ruff server"
-
-
-        [[language]]
-        name = "ruby"
-        file-types = ["rb", "rake", "gemspec", "ru", "thor", "erb"]
-        roots = ["Gemfile"]
-        language-servers = ["ruby-lsp"]
-        auto-format = true
-
-        [language-server.ruby-lsp]
-        command = "ruby-lsp"
-        required-root-patterns = ["Gemfile"]
-        config = { formatter = "none" }
-
-        # Nix language
-        [[language]]
-        name = "nix"
-        file-types = ["nix"]
-        auto-format = true
-        formatter = { command = "alejandra" }
-        language-servers = ["nil"]
-
-        [language-server.nil]
-        command = "nil"
-      '';
-    };
-
-    ".config/helix/themes/transparent.toml".text = ''
-      inherits = "catppuccin_mocha"
-
-      "ui.background" = { bg = "none" }
-      "ui.text" = { bg = "none" }
-      "ui.linenr" = { bg = "none" }
-      "ui.linenr.selected" = { bg = "none" }
-    '';
   };
 
   home.file.".config/hypr" = {
@@ -381,6 +229,11 @@
 
   home.file.".config/waybar" = {
     source = ./waybar;
+    recursive = true;
+  };
+
+  home.file.".config/helix" = {
+    source = ./helix;
     recursive = true;
   };
 

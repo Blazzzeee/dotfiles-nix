@@ -128,8 +128,8 @@ binds {
     Mod+F { toggle-window-floating; }
     Mod+X { spawn "/home/blazzee/.config/rofi/powermenu/powermenu.sh"; }
     Mod+Z { maximize-column; }
-    // Mod+O { spawn "rofi -show drun"; }
-    Mod+O { spawn "sh" "-c" "rofi -show drun"; }
+    Mod+O { spawn "sherlock"; }
+    // Mod+O { spawn "sh" "-c" "rofi -show drun"; }
     Mod+A { spawn "/home/blazzee/.config/hypr/scripts/choose-animation.sh"; } // Keeping script, might not work fully but harmless
     Mod+Q { switch-preset-column-width; }
 

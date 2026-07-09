@@ -16,7 +16,7 @@ window#waybar {
 }
 
 #custom-launcher {
-  padding: 8px 4px;
+  padding: 0 10px;
 }
 
 #workspaces {
@@ -24,15 +24,17 @@ window#waybar {
 }
 
 #workspaces button {
-  padding: 8px 4px;
+  padding: 0 10px;
   margin: 0;
   background: transparent;
   color: @text;
+  border-top: 2px solid transparent;
 }
 
 #workspaces button.active {
   background: @lavender;
   color: @crust;
+  border-top-color: transparent;
 }
 
 #workspaces button.active * {
@@ -42,20 +44,21 @@ window#waybar {
 #workspaces button.urgent {
   background: @red;
   color: @crust;
+  border-top-color: transparent;
 }
 
 #modules-left > widget,
 #modules-right > widget {
-  padding: 8px 4px;
-  margin: 4px 0;
+  padding: 0 4px;
+  margin: 0 2px;
 }
 
 #modules-right > widget {
-  margin: 4px 0;
+  margin: 0 4px;
 }
 
 #tray {
-  padding: 8px 4px;
+  padding: 0 10px;
 }
 
 #bluetooth {
@@ -64,7 +67,7 @@ window#waybar {
 
 #custom-sep {
   color: @overlay0;
-  padding: 2px 0;
+  padding: 0 2px;
   margin: 0;
   font-size: 18px;
 }
@@ -79,14 +82,29 @@ window#waybar {
 #custom-sep-r6,
 #custom-sep-r7 {
   color: @surface0;
-  padding: 2px 0;
+  padding: 0 6px;
 }
 
 #workspaces button:hover {
+  border-top-color: #ffffff;
   background: @surface0;
   color: @text;
   box-shadow: none;
   text-shadow: none;
+}
+
+#workspaces button.active:hover {
+  background: @lavender;
+  color: @crust;
+}
+
+#workspaces button.active:hover * {
+  color: @crust;
+}
+
+#workspaces button.urgent:hover {
+  background: @red;
+  color: @crust;
 }
 
 tooltip {

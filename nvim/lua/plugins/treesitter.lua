@@ -1,16 +1,38 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
-  event = { "BufReadPost", "BufNewFile" },  -- lazy load on buffer open
-  config = function()
-    local configs = require("nvim-treesitter.configs")
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    build = ":TSUpdate",
 
-    configs.setup({
-      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html" },
-      sync_install = false,
-      auto_install = true,
-      highlight = { enable = true },
-      indent = { enable = true },
-    })
-  end,
+    event = { "BufReadPost", "BufNewFile" },
+
+    config = function()
+      local ts = require("nvim-treesitter")
+
+      ts.setup({})
+
+      local parsers = {
+        "c",
+        "lua",
+        "vim",
+        "vimdoc",
+        "query",
+        "elixir",
+        "heex",
+        "javascript",
+        "html",
+      }
+
+      ts.install(parsers)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(ev)
+          pcall(vim.treesitter.start, ev.buf)
+
+          vim.bo[ev.buf].indentexpr =
+            "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
+    end,
+  },
 }

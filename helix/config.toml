@@ -3,12 +3,30 @@ theme = "vague"
 [editor]
 line-number = "relative"
 end-of-line-diagnostics = "hint"
+bufferline = "multiple"
+scrolloff = 30
+default-yank-register = "+"
+mouse = false
+color-modes = true
+true-color = true
+undercurl = true
+completion-trigger-len = 1
+shell = ["zsh", "-c"]
+idle-timeout = 10
+completion-timeout = 5
+text-width = 80
+jump-label-alphabet = "tnseriplfuwydhcxoaqz"
+trim-final-newlines = true
+trim-trailing-whitespace = true
+
+rulers = [100]
+completion-replace = true
+popup-border = "all"
+
 [editor.inline-diagnostics]
 cursor-line = "warning" # show warnings and errors on the cursorline inline
 
 [keys.normal]
-y = ":clipboard-yank"
-p = ["delete_selection", ":clipboard-paste-before"]
 - = [
   ':sh rm -f /tmp/unique-file',
   ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
@@ -17,8 +35,32 @@ p = ["delete_selection", ":clipboard-paste-before"]
   ':redraw',
 ]
 
+esc = ["collapse_selection", "keep_primary_selection"]
+ret = "goto_word"
+tab = "move_parent_node_end"
+S-tab = "move_parent_node_start"
+C-h = "jump_view_left"
+C-l = "jump_view_right"
+
+
+[keys.insert]
+C-h = ["jump_view_left", "insert_mode"]
+C-l = ["jump_view_right", "insert_mode"]
+S-tab = "move_parent_node_start"
+
+[keys.select]
+ret = "extend_to_word"
+X = "select_line_above"
+tab = "extend_parent_node_end"
+S-tab = "extend_parent_node_start"
+
+
 [editor.indent-guides]
 render = true
 character = "|"
 skip-levels = 2
 render-blank-lines = true
+
+[editor.auto-save]
+after-delay.enable = true
+after-delay.timeout = 100

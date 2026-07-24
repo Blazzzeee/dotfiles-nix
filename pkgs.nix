@@ -25,6 +25,7 @@
       nodePackages.typescript-language-server
       nodePackages.eslint
       emmet-language-server
+      simple-completion-language-server
       uv
       fish
       kdePackages.kdenlive
@@ -47,6 +48,7 @@
       gcc
       gnumake
       pkgs-unstable.neovim
+      svelte-language-server
     ]
     ++ lib.optionals niriEnabled [
       niri

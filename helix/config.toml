@@ -3,7 +3,6 @@ theme = "vague"
 [editor]
 line-number = "relative"
 end-of-line-diagnostics = "hint"
-bufferline = "multiple"
 scrolloff = 30
 default-yank-register = "+"
 mouse = false
@@ -21,7 +20,6 @@ trim-trailing-whitespace = true
 
 rulers = [100]
 completion-replace = true
-popup-border = "all"
 
 [editor.inline-diagnostics]
 cursor-line = "warning" # show warnings and errors on the cursorline inline

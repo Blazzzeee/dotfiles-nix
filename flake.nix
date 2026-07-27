@@ -48,7 +48,7 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {inherit system;};
     pkgs-unstable = import nixpkgs-unstable {inherit system;};
-    niriEnabled = true;
+    niriEnabled = false;
   in {
     # --- NixOS system ---
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {

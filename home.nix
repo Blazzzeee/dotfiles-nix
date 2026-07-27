@@ -21,7 +21,6 @@
   programs.eza.enable = true;
   programs.eza.icons = "always";
   services.swww.enable = true;
-  services.swaync.enable = false;
   services.dunst.enable = false;
   programs.zsh = {
     enable = true;
@@ -47,7 +46,6 @@
   programs.zsh.syntaxHighlighting.enable = true;
   programs.zoxide.enableZshIntegration = true;
   programs.starship.enable = false;
-  programs.claude-code.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   programs.oh-my-posh = {
@@ -130,7 +128,6 @@
   programs.zellij.enable = true;
   programs.yazi.enable = true;
   programs.eza.enableZshIntegration = true;
-  programs.fish.enable = true;
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -148,21 +145,14 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    tofi
     fd
     lazygit
     brave
     catppuccin-gtk
     nwg-look
-    gemini-cli
     btop
     dunst
   ];
-
-  programs.qutebrowser.settings = {
-    "colors.webpage.darkmode.enabled" = true;
-    "content.javascript.clipboard" = "access";
-  };
 
   gtk = {
     enable = true;
@@ -271,89 +261,6 @@
     recursive = true;
   };
 
-  programs.sherlock = {
-    enable = false;
-
-    # to run sherlock as a daemon
-    systemd.enable = true;
-
-    # If wanted, you can use this line for the _latest_ package. / Otherwise, you're relying on nixpkgs to update it frequently enough.
-    # For this to work, make sure to add sherlock as a flake input!
-    # package = inputs.sherlock.packages.${pkgs.system}.default;
-
-    # config.toml
-    settings = {};
-
-    # sherlock_alias.json
-    aliases = {
-      vesktop = {name = "Discord";};
-    };
-
-    # sherlockignore
-    ignore = ''
-      Avahi*
-    '';
-
-    # fallback.json
-    launchers = [
-      {
-        name = "Calculator";
-        type = "calculation";
-        args = {
-          capabilities = [
-            "calc.math"
-            "calc.units"
-          ];
-        };
-        priority = 1;
-      }
-      {
-        name = "App Launcher";
-        type = "app_launcher";
-        args = {};
-        priority = 2;
-        home = "Home";
-      }
-    ];
-
-    # main.css
-    style =
-      /*
-      css
-      */
-      ''
-        * {
-          font-family: sans-serif;
-        }
-      '';
-  };
-  home.file.".config/tofi/config.toml" = {
-    source = pkgs.writeText "tofi-config" ''
-      # Nordbones-inspired Tofi config (no red, no transparency)
-
-      font = JetBrainsMono Nerd Font
-      font-size = 14
-
-      background-color = #111111
-      text-color = #f9fbff
-      selection-color = #5e81ac
-
-      outline-width = 0
-      border-width = 0
-
-      padding-left = 2%
-      padding-top = 2%
-      padding-right = 0
-      padding-bottom = 0
-
-      width = 20%
-      height = 30%
-
-      hide-cursor = true
-      prompt-text = ""
-    '';
-  };
-
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -371,8 +278,7 @@
   #  /etc/profiles/per-user/blazzee/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "nvim";
-    # EDITOR = "emacs";
+    EDITOR = "hx";
   };
 
   # Let Home Manager install and manage itself.
@@ -392,6 +298,8 @@
       hide_window_decorations = "yes";
     };
     keybindings = {
+      "ctrl+tab" = "send_key ctrl+tab";
+      "ctrl+shift+tab" = "send_key ctrl+shift+tab";
       "ctrl+t" = "new_tab_with_cwd";
     };
   };

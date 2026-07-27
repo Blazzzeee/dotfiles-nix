@@ -27,27 +27,19 @@
       emmet-language-server
       simple-completion-language-server
       uv
-      fish
-      kdePackages.kdenlive
       bzmenu
-      nodejs
       nil
       alejandra
       statix
       slack
-      github-copilot-cli
-      cloudflared
       ncdu
       hyprshot
       discord
       cmatrix
-      wiremix
       powertop
       nautilus
-      tree-sitter
       gcc
       gnumake
-      pkgs-unstable.neovim
       svelte-language-server
     ]
     ++ lib.optionals niriEnabled [

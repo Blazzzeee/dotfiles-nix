@@ -99,8 +99,9 @@ command = "ruff server"
 command = "bundle"
 args = ["exec", "ruby-lsp"]
 
-[language-server.ruby-lsp.config]
-ruby-lsp = { initializationOptions = { enabledFeatures = { completion = true, completionResolve = true, hover = true, signatureHelp = true, definition = true, diagnostics = true, formatting = true, codeActions = true }, formatter = "rubocop", linters = ["rubocop"] } }
+[language-server.rubocop]
+command = "bundle"
+args = ["exec", "rubocop", "--lsp"]
 
 [language-server.erb-formatter]
 command = "bundle"
@@ -109,7 +110,7 @@ args = ["exec", "erb-formatter", "--stdin"]
 [[language]]
 name = "ruby"
 auto-format = true
-language-servers = ["ruby-lsp", "scls"]
+language-servers = ["ruby-lsp", { name = "rubocop", only-features = ["diagnostics", "code-action"] }, "scls"]
 formatter = { command = "bundle", args = ["exec", "rubocop", "--autocorrect", "--stdin", "%{buffer_name}", "--stderr", "--fail-level", "fatal"] }
 file-types = ["rb", "rake", "gemspec", { glob = "Gemfile" }, { glob = "Rakefile" }, { glob = "Guardfile" }]
 roots = ["Gemfile", "Gemfile.lock", ".ruby-version"]

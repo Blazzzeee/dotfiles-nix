@@ -29,8 +29,6 @@
       y = "yazi";
       nih = "home-manager switch --flake .";
       nir = "sudo nixos-rebuild switch --flake .";
-      nv = "nvim";
-      n = "nvim .";
     };
     initContent = ''
       # Make Alt+Backspace delete backward word
@@ -298,8 +296,8 @@
       hide_window_decorations = "yes";
     };
     keybindings = {
-      "ctrl+tab" = "send_key ctrl+tab";
-      "ctrl+shift+tab" = "send_key ctrl+shift+tab";
+      "ctrl+tab" = "next_tab";
+      "ctrl+shift+tab" = "previous_tab";
       "ctrl+t" = "new_tab_with_cwd";
     };
   };

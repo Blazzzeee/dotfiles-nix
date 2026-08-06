@@ -4,6 +4,22 @@
   pkgs,
   ...
 }: {
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+        ignore_dbus_inhibit = false;
+      };
+
+      listener = {
+        timeout = 600;
+        on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+        on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+      };
+    };
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -194,6 +210,10 @@
         "workspace 1, class:^(kitty)$"
         "float, class:^(org\\.stronnag\\.wayfarer)$"
         "size 533 215, class:^(org\\.stronnag\\.wayfarer)$"
+        "float, class:^(Slack|slack)$, title:^(.*[Hh]uddle.*)$"
+        "center, class:^(Slack|slack)$, title:^(.*[Hh]uddle.*)$"
+        "pin, class:^(Slack|slack)$, title:^(.*[Hh]uddle.*)$"
+        "size 720 480, class:^(Slack|slack)$, title:^(.*[Hh]uddle.*)$"
         "workspace 2, class:^(Brave-browser)$"
         "workspace 5, class:^(Spotify)$"
       ];

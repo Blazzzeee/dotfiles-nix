@@ -37,6 +37,7 @@
       if [ -f ~/.config/secrets/env ]; then
         source ~/.config/secrets/env
       fi
+      export LANG=en_US.UTF-8
     '';
   };
 

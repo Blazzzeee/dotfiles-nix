@@ -1,0 +1,49 @@
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  lib,
+  niriEnabled,
+  ...
+}: {
+  environment.systemPackages = with pkgs;
+    [
+      kitty
+      nerd-fonts.jetbrains-mono
+      font-awesome
+      vimix-cursors
+      wl-clipboard
+      pavucontrol
+      brightnessctl
+      arp-scan
+      tailscale
+      libnotify
+      dnsutils
+      clang-tools
+      lua-language-server
+      pyright
+      nodePackages.typescript-language-server
+      nodePackages.eslint
+      emmet-language-server
+      simple-completion-language-server
+      uv
+      bzmenu
+      nil
+      alejandra
+      statix
+      slack
+      ncdu
+      hyprshot
+      discord
+      cmatrix
+      powertop
+      nautilus
+      gcc
+      gnumake
+      svelte-language-server
+      ventoy
+    ]
+    ++ lib.optionals niriEnabled [
+      niri
+    ];
+}

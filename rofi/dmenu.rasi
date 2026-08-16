@@ -1,0 +1,69 @@
+configuration {
+  modi: "drun";
+  display-drun: "Run: ";
+  show-icons: false;
+  drun-display-format: "{name}";
+  font: "JetBrains Mono 16";
+  listview-hover-select: true;
+  matching: "fuzzy";
+  tokenize: true;
+  sort: true;
+  sorting-method: "fzf";
+}
+
+* {
+    /* Catppuccin Mocha Colors */
+    bg: #1e1e2e;
+    fg: #cdd6f4;
+    mauve: #cba6f7;
+    surface0: #313244;
+    
+    background-color:      transparent;
+    text-color:           @fg;
+}
+
+window {
+    padding: 1.2%;
+    anchor: north;
+    location: north;
+    height: 5.5%;
+    width: 100%;
+    y-offset: -4.5%;
+    background-color: @bg;
+    children: [ horibox ];
+}
+
+horibox {
+    orientation: horizontal;
+    children:   [ prompt, entry, listview ];
+}
+
+prompt {
+    text-color: @mauve;
+    padding: 0px 10px 0px 5px;
+}
+
+entry {
+    expand:     false;
+    width:      10em;
+    text-color: @fg;
+}
+
+listview {
+    layout:     horizontal;
+    spacing:    15px;
+    lines:      100;
+}
+
+element {
+    padding: 0px 5px;
+}
+
+element selected {
+    text-color: @mauve;
+}
+
+element-text {
+    background-color: inherit;
+    text-color: inherit;
+}

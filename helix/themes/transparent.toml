@@ -1,0 +1,6 @@
+inherits = "catppuccin_mocha"
+
+"ui.background" = { bg = "none" }
+"ui.text" = { bg = "none" }
+"ui.linenr" = { bg = "none" }
+"ui.linenr.selected" = { bg = "none" }
